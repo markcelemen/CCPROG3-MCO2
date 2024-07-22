@@ -6,6 +6,8 @@ public class View {
 	private JPanel panel;
 
 	public View() {
+		this.mainFrame = new JFrame();
+		this.panel = new JPanel();
 		this.mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.mainFrame.setVisible(true);
 	}

@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public abstract class Room {
 	private String name;
 	private ReservationModel reservationModel;

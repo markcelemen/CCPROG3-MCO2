@@ -9,7 +9,7 @@ public class Stay4Get1Discount implements DiscountCode {
 
 			double newPrice = 0.0;
 			for (Day d : reservation.getDayList()) // updates the price
-				newPrice += (room.getPrice() * d.getRate());
+				newPrice += (reservation.getRoom().getPrice() * d.getRate());
             reservation.setPrice(newPrice);
         }
 		return value;
