@@ -13,9 +13,8 @@ public class Reservation {
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
 		this.dayList = new ArrayList<Day>();
-		for (int i = checkIn; i < checkOut; i++)
-			if (hotel.getDayList().get(i).getDay() == i) // searches for the corresponding day and adds a new instance of that day with the same attributes
-				this.dayList.add(new Day(hotel.getDayList().get(i).getDay(), hotel.getDayList().get(i).getRate()));
+		for (int i = checkIn; i < checkOut; i++) // searches for the corresponding day and adds a new instance of that day with the same attributes
+				this.dayList.add(new Day(hotel.getDayList().get(i - 1).getDay(), hotel.getDayList().get(i - 1).getRate()));
 		this.room = room;
 		this.price = 0.0;
 		for (Day d : this.dayList)
