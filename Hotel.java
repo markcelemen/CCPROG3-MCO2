@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Hotel {
 	private String name;
 	private RoomModel roomModel;
-	private ReservationModel reservationModel;
+	public ReservationModel reservationModel;
 	private ArrayList<Day> dayList;
 	private double costPerNight;
 	private double earnings;

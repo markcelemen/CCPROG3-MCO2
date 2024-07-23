@@ -1,6 +1,6 @@
 public abstract class Room {
 	private String name;
-	private ReservationModel reservationModel;
+	public ReservationModel reservationModel;
 
 	public Room(String name) {
 		this.name = name;

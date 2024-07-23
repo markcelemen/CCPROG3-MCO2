@@ -7,6 +7,7 @@ public class Reservation {
 	private ArrayList<Day> dayList;
 	private Room room;
 	private double price;
+	private boolean redeemedCode = false;
 
 	public Reservation(String name, int checkIn, int checkOut, Room room, Hotel hotel) {
 		this.guestName = name;
@@ -45,7 +46,15 @@ public class Reservation {
 	  	return this.price;
 	}
 
+	public boolean getRedeemedCode() {
+		return this.redeemedCode;
+	}
+
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public void setRedeemedCode(boolean val) {
+		this.redeemedCode = val;
 	}
 }
