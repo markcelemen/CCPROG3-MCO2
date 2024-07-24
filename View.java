@@ -132,4 +132,4 @@ public class View {
 	public void clearCreateHotelTf() {
 		this.createHotelTf.setText("");
 	}
-}
+} // wip
