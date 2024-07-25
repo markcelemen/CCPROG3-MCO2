@@ -7,23 +7,24 @@ import java.awt.event.ActionListener;
 public class View {
 	private JFrame mainFrame;
 	private JPanel mainPanel, createHotelPanel, viewHotelPanel, 
-					viewHotelPanel2, AbPanel, IRoomPanel;
+					viewHotelPanel2, AbPanel, IRoomPanel, IResPanel;
 	private JLabel mainPanelLbl, createHotelLbl, VhLbl, 
-						AbLbl, IRoomLbl;
+						AbLbl, IRoomLbl, IResLbl, IResNameLbl, IResInLbl, IResOutLbl, IResRoomLbl;
 	private JTextField createHotelTf, 
-					   viewHotelPanelTf, AbEnterTf, IRoomTf;
+					   viewHotelPanelTf, AbEnterTf, IRoomTf, IResNameTf, IResInTf, IResOutTf, IResRoomTf;
 	private JButton createHotelBtn, viewHotelBtn, manageHotelBtn, simulateBtn, datePriceBtn, // main menu buttons
 					mainMenuBtn1, enterHotelBtn1, // create hotel buttons
 					VhMainMenuBtn, VhEnterBtn, mainMenuBtn2, VHBtn1, VHBtn2, VHBtn3, // view hotel buttons
 						AbMainMenuBtn, AbEnterBtn,
-						IRoomMenuBtn, IRoomEnterBtn
+						IRoomMenuBtn, IRoomEnterBtn,
+						IResMenuBtn, IResEnterBtn
 					;
-	private JTextArea VhTextArea, AbTextArea, IRoomTextArea;
+	private JTextArea VhTextArea, AbTextArea, IRoomTextArea, IResTextArea;
 	private Container container;
 	private CardLayout cardLayout;
 	
 	public View() {
-		this.mainFrame = new JFrame();
+		this.mainFrame = new JFrame("Hotel Reservation System");
 		this.mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.mainFrame.setSize(600, 800);
 
@@ -163,7 +164,7 @@ public class View {
 
 		this.container.add(AbPanel, "AbPanel");
 
-		// Info room panel
+		// info room panel
 		this.IRoomPanel = new JPanel();
 		this.IRoomPanel.setLayout(null);
 
@@ -189,6 +190,61 @@ public class View {
 		this.IRoomPanel.add(this.IRoomTextArea);
 
 		this.container.add(IRoomPanel, "IRoomPanel");
+
+		//info reservation panel
+		this.IResPanel = new JPanel();
+		this.IResPanel.setLayout(null);
+
+		this.IResMenuBtn = new JButton("Main Menu");
+		this.IResMenuBtn.setBounds(0, 0, 100, 30);
+		this.IResPanel.add(this.IResMenuBtn);
+		
+		this.IResNameLbl = new JLabel("Name:");
+		this.IResNameLbl.setBounds(110, 5, 220, 30);
+		this.IResPanel.add(this.IResNameLbl);
+
+		this.IResInLbl = new JLabel("Check-in day:");
+		this.IResInLbl.setBounds(110, 25, 220, 30);
+		this.IResPanel.add(this.IResInLbl);
+
+		this.IResOutLbl = new JLabel("Check-out day:");
+		this.IResOutLbl.setBounds(110, 45, 220, 30);
+		this.IResPanel.add(this.IResOutLbl);
+
+		this.IResRoomLbl = new JLabel("Room:");
+		this.IResRoomLbl.setBounds(110, 65, 220, 30);
+		this.IResPanel.add(this.IResRoomLbl);
+
+		this.IResNameTf = new JTextField();
+		this.IResNameTf.setBounds(217, 10, 166, 25);
+		this.IResPanel.add(this.IResNameTf);
+
+		this.IResInTf = new JTextField();
+		this.IResInTf.setBounds(217, 30, 166, 25);
+		this.IResPanel.add(this.IResInTf);
+
+		this.IResOutTf = new JTextField();
+		this.IResOutTf.setBounds(217, 50, 166, 25);
+		this.IResPanel.add(this.IResOutTf);
+
+		this.IResRoomTf = new JTextField();
+		this.IResRoomTf.setBounds(217, 70, 166, 25);
+		this.IResPanel.add(this.IResRoomTf);
+
+		this.IResEnterBtn = new JButton("Enter");
+		this.IResEnterBtn.setBounds(190, 130, 220, 30);
+		this.IResPanel.add(this.IResEnterBtn);
+
+		this.IResLbl = new JLabel();
+		this.IResLbl.setBounds(190, 210, 220, 30);
+		this.IResPanel.add(this.IResLbl);
+
+		this.IResTextArea = new JTextArea();
+		this.IResTextArea.setBounds(5, 300, 580, 400);
+		this.IResTextArea.setEditable(false);
+		this.IResPanel.add(this.IResTextArea);
+
+		this.container.add(IResPanel, "IResPanel");
 
 		//-------------------------------------------
 		this.mainFrame.setVisible(true);
@@ -290,7 +346,7 @@ public class View {
 		this.VhTextArea.setText(text);
 	}
 
-	//available and booked rooms panel
+	//available and booked rooms components
 	public void setAbMainMenuBtnListener(ActionListener actionListener) {
 		this.AbMainMenuBtn.addActionListener(actionListener);
 	}
@@ -319,7 +375,7 @@ public class View {
 		this.AbTextArea.setText("");
 	}
 
-	//info room panel
+	//info room components
 	public void setIRoomMenuListener(ActionListener actionListener) {
 		this.IRoomMenuBtn.addActionListener(actionListener);
 	}
@@ -342,5 +398,45 @@ public class View {
 
 	public void setIRoomTextArea(String text) {
 		this.IRoomTextArea.setText(text);
+	}
+
+	//info reservation components
+	public void setIResMenuListener(ActionListener actionListener) {
+		this.IResMenuBtn.addActionListener(actionListener);
+	}
+
+	public void setIResEnterBtnListener(ActionListener actionListener) {
+		this.IResEnterBtn.addActionListener(actionListener);
+	}
+
+	public String getIResNameTfText() {
+		return this.IResNameTf.getText();
+	}
+
+	public String getIResInTfText() {
+		return this.IResInTf.getText();
+	}
+
+	public String getIResOutTfText() {
+		return this.IResOutTf.getText();
+	}
+
+	public String getIResRoomTfText() {
+		return this.IResRoomTf.getText();
+	}
+
+	public void clearIResTfText() {
+		this.IResNameTf.setText("");
+		this.IResInTf.setText("");
+		this.IResOutTf.setText("");
+		this.IResRoomTf.setText("");
+	}
+
+	public void setIResLblText(String text) {
+		this.IResLbl.setText(text);
+	}
+
+	public void setIResTextArea(String text) {
+		this.IResTextArea.setText(text);
 	}
 }	

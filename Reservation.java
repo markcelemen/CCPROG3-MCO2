@@ -19,7 +19,7 @@ public class Reservation {
 		this.room = room;
 		this.price = 0.0;
 		for (Day d : this.dayList)
-			price += (room.getPrice() * d.getRate());
+			price += (this.room.getPrice() * d.getRate());
 	}
 
 	public String getGuestName() {
