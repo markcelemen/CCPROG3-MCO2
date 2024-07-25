@@ -16,7 +16,7 @@ public class Controller {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				view.getCardLayout().show(view.getContainer(), "createHotelPanel");
-				view.setCreateHotelLbl("Enter hotel name.");
+				view.setCreateHotelLbl("Enter hotel name");
 			}
 		});
 
@@ -24,11 +24,12 @@ public class Controller {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String hotelList = "";
-				view.setVhLblText("Enter hotel name.");
 				if (HRS.hotelModel.getHotelList().size() == 0) {
-					view.setMainPanelLbl("No hotels added to the system.");
+					view.setMainPanelLbl("No hotels added to the system");
 				}
 				else {
+					view.setViewHotelPanelTfText("");
+					view.setVhLblText("Enter hotel name");
 					view.getCardLayout().show(view.getContainer(), "viewHotelPanel2");
 					for (Hotel h : HRS.hotelModel.getHotelList()) {
 						hotelList += h.getName()+"\n";
@@ -41,8 +42,18 @@ public class Controller {
 		this.view.setManageHotelBtnListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				String hotelList = "";
 				if (HRS.hotelModel.getHotelList().size() == 0)
-					view.setMainPanelLbl("No hotels added to the system.");
+					view.setMainPanelLbl("No hotels added to the system");
+				else {
+					view.setMhTfText("");
+					view.setMhLblText("Enter hotel name");
+					view.getCardLayout().show(view.getContainer(), "MhPanel1");
+					for (Hotel h : HRS.hotelModel.getHotelList()) {
+						hotelList += h.getName()+"\n";
+					}
+				}
+				view.setMhTextArea("Hotel list: \n"+hotelList);
 			}
 		});
 
@@ -50,7 +61,7 @@ public class Controller {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (HRS.hotelModel.getHotelList().size() == 0)
-					view.setMainPanelLbl("No hotels added to the system.");
+					view.setMainPanelLbl("No hotels added to the system");
 			}
 		});
 
@@ -58,7 +69,7 @@ public class Controller {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (HRS.hotelModel.getHotelList().size() == 0)
-					view.setMainPanelLbl("No hotels added to the system.");
+					view.setMainPanelLbl("No hotels added to the system");
 			}
 		});
 
@@ -78,7 +89,7 @@ public class Controller {
 				String name = view.getHotelNameText();
 				boolean val = true;
 				if (name.equals("")) {
-					view.setCreateHotelLbl("Invalid hotel name.");
+					view.setCreateHotelLbl("Invalid hotel name");
 				} else {
 					for (Hotel h : HRS.hotelModel.getHotelList()) {
 						if (name.equals(h.getName()) || name.equals("")) {
@@ -89,10 +100,10 @@ public class Controller {
 					
 					if (val) {
 						HRS.hotelModel.getHotelList().add(new Hotel(name));
-						view.setCreateHotelLbl("Hotel "+name+" successfully created.");
+						view.setCreateHotelLbl("Hotel "+name+" successfully created");
 						view.clearCreateHotelTf();
 					} else {
-						view.setCreateHotelLbl("Hotel name must be unique.");
+						view.setCreateHotelLbl("Hotel name must be unique");
 					}
 				}
 			}
@@ -104,7 +115,7 @@ public class Controller {
 			public void actionPerformed(ActionEvent e) {
 				view.getCardLayout().show(view.getContainer(), "mainPanel");
 				view.setMainPanelLbl("");
-				view.setVhLblText("Enter hotel name.");
+				view.setVhLblText("Enter hotel name");
 			}
 		});
 
@@ -122,7 +133,7 @@ public class Controller {
 				}
 
 				if (val == false) {
-					view.setVhLblText("Hotel not found.");
+					view.setVhLblText("Hotel not found");
 				} else {
 					view.setViewHotelPanelTfText("");
 					view.getCardLayout().show(view.getContainer(), "viewHotelPanel");
@@ -191,30 +202,40 @@ public class Controller {
 		this.view.setAbEnterBtnListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int day = Integer.parseInt(view.getAbEnterTfText());
+				int day = 0;
+				boolean result = false;
 				String displayAvailable = "";
 				String displayBooked = "";
 
-				if (day < 1 || day > 31) {
-					view.setAbLblText("Invalid input");
-				} else {
-					for (Room r : chosenHotel.roomModel.getRoomList()) {
-						if (r.isReserved()) {
-							if (r.isAvailable(day)) {
-								displayAvailable += r.getName() + "\n";
-							}
-							else {
-								displayBooked += r.getName() + "\n";
-							}
-						} else {
-							displayAvailable += r.getName() + "\n";
-						}
-					}
+				try {
+					day = Integer.parseInt(view.getAbEnterTfText());
+					result = true;
+				} catch (Exception d) {
+					
 				}
 
-				view.setAbTextArea("Hotel name: " +chosenHotel.getName()+"\nTotal number of rooms: "+chosenHotel.roomModel.getRoomList().size()+
-				"\nTotal earnings: "+chosenHotel.getEarnings() + "\n\n"
-				+"Booked rooms:\n"+ displayBooked + "\nAvailable rooms: \n" + displayAvailable);
+				if (result == true)
+					if (day < 1 || day > 31) {
+						view.setAbLblText("Invalid input");
+					} else {
+						for (Room r : chosenHotel.roomModel.getRoomList()) {
+							if (r.isReserved()) {
+								if (r.isAvailable(day)) {
+									displayAvailable += r.getName() + "\n";
+								}
+								else {
+									displayBooked += r.getName() + "\n";
+								}
+							} else {
+								displayAvailable += r.getName() + "\n";
+							}
+						}
+						view.setAbTextArea("Hotel name: " +chosenHotel.getName()+"\nTotal number of rooms: "+chosenHotel.roomModel.getRoomList().size()+
+						"\nTotal earnings: "+chosenHotel.getEarnings() + "\n\n"
+						+"Booked rooms:\n"+ displayBooked + "\nAvailable rooms: \n" + displayAvailable);
+					}
+				else
+					view.setAbLblText("Invalid input");
 			}
 		});
 
@@ -281,17 +302,25 @@ public class Controller {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String resName = view.getIResNameTfText();
-				int resIn = Integer.parseInt(view.getIResInTfText());
-				int resOut = Integer.parseInt(view.getIResOutTfText());
+				int resIn = 0;
+				int resOut = 0;
 				String resRoom = view.getIResRoomTfText();
 				String display = "";
-				boolean val = false;
+				boolean val = false, result = false;
 				String resList = "";
 
+				try {
+					resIn = Integer.parseInt(view.getIResInTfText());
+					resOut = Integer.parseInt(view.getIResOutTfText());
+				} catch (Exception d) {
+					
+				}
+				
 				for (Reservation r : chosenHotel.reservationModel.getReservationList())
 					resList += "Name: "+String.format("%-20s", r.getGuestName()) + String.format(" Check-in: %02d  ", r.getCheckIn())
 					+String.format(" Check-out: %02d  ", r.getCheckOut()) + " Room: "+r.getRoom().getName();
-
+				
+				if (result == true)
 				for (Reservation r : chosenHotel.reservationModel.getReservationList()) {
 					if (resName.equals(r.getGuestName()) &&
 					resRoom.equals(r.getRoom().getName()) &&
@@ -312,11 +341,95 @@ public class Controller {
 				}
 
 				if (!val) {
-					view.setIResLblText("Reservation not found.");
+					view.setIResLblText("Reservation not found");
 					view.setIResTextArea("List of reservations: \n" +resList);
 				}
 				else {
 					view.setIResTextArea(display);
+				}
+			}
+		});
+
+		// manage hotel panel 1 components
+		this.view.setMhMenuBtn1Listener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.getCardLayout().show(view.getContainer(), "mainPanel");
+				view.setMainPanelLbl("");
+			}
+		});
+
+		this.view.setMhEnterBtnListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				chosenHotelName = view.getMhTfText();
+				boolean val = false;
+				for (Hotel h : HRS.hotelModel.getHotelList()) {
+					if (chosenHotelName.equals(h.getName())) {
+						chosenHotel = h;
+						val = true;
+						break;
+					}
+				}
+
+				if (val == false) {
+					view.setMhLblText("Hotel not found");
+				} else {
+					view.setViewHotelPanelTfText("");
+					view.getCardLayout().show(view.getContainer(), "MhPanel2");
+				}
+			}
+		});
+
+		// manage hotel panel 2 components
+		this.view.setMhMenuBtn2Listener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.getCardLayout().show(view.getContainer(), "mainPanel");
+				view.setMainPanelLbl("");
+			}
+		});
+
+		this.view.setMhBtn1Listener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.getCardLayout().show(view.getContainer(), "CnPanel");
+				view.setCnLblText("Enter new hotel name");
+				view.setCnTfText("");
+			}
+		});
+
+		//change hotel name components
+		this.view.setCnMenuBtnListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.getCardLayout().show(view.getContainer(), "mainPanel");
+				view.setMainPanelLbl("");
+			}
+		});
+
+		this.view.setCnEnterBtnListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String name = view.getCnTfText();
+				boolean val = true;
+				if (name.equals("")) {
+					view.setCreateHotelLbl("Invalid hotel name");
+				} else {
+					for (Hotel h : HRS.hotelModel.getHotelList()) {
+						if (name.equals(h.getName()) || name.equals("")) {
+							val = false;
+							break;
+						}
+					}
+					
+					if (val) {
+						chosenHotel.setName(name);
+						view.setCnLblText("Hotel name successfully changed");
+						view.setCnTfText("");
+					} else {
+						view.setCnLblText("Hotel name must be unique/different");
+					}
 				}
 			}
 		});

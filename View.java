@@ -7,19 +7,28 @@ import java.awt.event.ActionListener;
 public class View {
 	private JFrame mainFrame;
 	private JPanel mainPanel, createHotelPanel, viewHotelPanel, 
-					viewHotelPanel2, AbPanel, IRoomPanel, IResPanel;
-	private JLabel mainPanelLbl, createHotelLbl, VhLbl, 
-						AbLbl, IRoomLbl, IResLbl, IResNameLbl, IResInLbl, IResOutLbl, IResRoomLbl;
+				   viewHotelPanel2, AbPanel, IRoomPanel, IResPanel,
+				   MhPanel1, MhPanel2, CnPanel
+				   ;
+	private JLabel mainPanelLbl, createHotelLbl, VhLbl, MhLbl, 
+						AbLbl, IRoomLbl, IResLbl, IResNameLbl, IResInLbl, IResOutLbl, IResRoomLbl,
+						CnLbl
+						;
 	private JTextField createHotelTf, 
-					   viewHotelPanelTf, AbEnterTf, IRoomTf, IResNameTf, IResInTf, IResOutTf, IResRoomTf;
+					   viewHotelPanelTf, AbEnterTf, IRoomTf, IResNameTf, IResInTf, IResOutTf, IResRoomTf,
+					   MhTf, CnTf
+					   ;
 	private JButton createHotelBtn, viewHotelBtn, manageHotelBtn, simulateBtn, datePriceBtn, // main menu buttons
 					mainMenuBtn1, enterHotelBtn1, // create hotel buttons
 					VhMainMenuBtn, VhEnterBtn, mainMenuBtn2, VHBtn1, VHBtn2, VHBtn3, // view hotel buttons
 						AbMainMenuBtn, AbEnterBtn,
 						IRoomMenuBtn, IRoomEnterBtn,
-						IResMenuBtn, IResEnterBtn
+						IResMenuBtn, IResEnterBtn,
+					MhMenuBtn1, MhEnterBtn, MhMenuBtn2, MhBtn1, MhBtn2, MhBtn3, MhBtn4, MhBtn5, MhBtn6, // manage hotel buttons
+						CnMenuBtn, CnEnterBtn
 					;
-	private JTextArea VhTextArea, AbTextArea, IRoomTextArea, IResTextArea;
+	private JTextArea VhTextArea, AbTextArea, IRoomTextArea, IResTextArea,
+				      MhTextArea;
 	private Container container;
 	private CardLayout cardLayout;
 	
@@ -38,27 +47,27 @@ public class View {
 		this.mainPanel.setLayout(null);
 
 		this.createHotelBtn = new JButton("Create Hotel");
-		this.createHotelBtn.setBounds(190, 10, 220, 30);
+		this.createHotelBtn.setBounds(190, 50, 220, 30);
 		this.mainPanel.add(createHotelBtn);
 
 		this.viewHotelBtn = new JButton("View Hotel");
-		this.viewHotelBtn.setBounds(190, 50, 220, 30);
+		this.viewHotelBtn.setBounds(190, 90, 220, 30);
 		this.mainPanel.add(viewHotelBtn);
 
 		this.manageHotelBtn = new JButton("Manage Hotel");
-		this.manageHotelBtn.setBounds(190, 90, 220, 30);
+		this.manageHotelBtn.setBounds(190, 130, 220, 30);
 		this.mainPanel.add(manageHotelBtn);
 
 		this.simulateBtn = new JButton("Simulate Booking");
-		this.simulateBtn.setBounds(190, 130, 220, 30);
+		this.simulateBtn.setBounds(190, 170, 220, 30);
 		this.mainPanel.add(simulateBtn);
 
 		this.datePriceBtn = new JButton("Modify Date Price");
-		this.datePriceBtn.setBounds(190, 170, 220, 30);
+		this.datePriceBtn.setBounds(190, 210, 220, 30);
 		this.mainPanel.add(datePriceBtn);
 
 		this.mainPanelLbl = new JLabel("");
-		this.mainPanelLbl.setBounds(190, 210, 220, 30);
+		this.mainPanelLbl.setBounds(190, 250, 220, 30);
 		this.mainPanel.add(mainPanelLbl);
 
 		this.container.add(mainPanel, "mainPanel");
@@ -246,6 +255,92 @@ public class View {
 
 		this.container.add(IResPanel, "IResPanel");
 
+		//manage hotel panel 1
+		this.MhPanel1 = new JPanel();
+		this.MhPanel1.setLayout(null);
+
+		this.MhMenuBtn1 = new JButton("Main Menu");
+		this.MhMenuBtn1.setBounds(0, 0, 100, 30);
+		this.MhPanel1.add(this.MhMenuBtn1);
+
+		this.MhTf = new JTextField();
+		this.MhTf.setBounds(217, 50, 166, 25);
+		this.MhPanel1.add(this.MhTf);
+
+		this.MhEnterBtn = new JButton("Enter");
+		this.MhEnterBtn.setBounds(190, 130, 220, 30);
+		this.MhPanel1.add(this.MhEnterBtn);
+
+		this.MhLbl = new JLabel();
+		this.MhLbl.setBounds(190, 210, 220, 30);
+		this.MhPanel1.add(this.MhLbl);
+
+		this.MhTextArea = new JTextArea();
+		this.MhTextArea.setBounds(5, 300, 580, 400);
+		this.MhTextArea.setEditable(false);
+		this.MhPanel1.add(this.MhTextArea);
+
+		this.container.add(MhPanel1, "MhPanel1");
+
+		//manage hotel panel 2
+		this.MhPanel2 = new JPanel();
+		this.MhPanel2.setLayout(null);
+
+		this.MhMenuBtn2 = new JButton("Main Menu");
+		this.MhMenuBtn2.setBounds(0, 0, 100, 30);
+		this.MhPanel2.add(this.MhMenuBtn2);
+
+		this.MhBtn1 = new JButton("Change Hotel Name");
+		this.MhBtn1.setBounds(190, 50, 220, 30);
+		this.MhPanel2.add(this.MhBtn1);
+
+		this.MhBtn2 = new JButton("Add Room(s)");
+		this.MhBtn2.setBounds(190, 90, 220, 30);
+		this.MhPanel2.add(this.MhBtn2);
+
+		this.MhBtn3 = new JButton("Remove Room(s)");
+		this.MhBtn3.setBounds(190, 130, 220, 30);
+		this.MhPanel2.add(this.MhBtn3);
+
+		this.MhBtn4 = new JButton("Update Room Price");
+		this.MhBtn4.setBounds(190, 170, 220, 30);
+		this.MhPanel2.add(this.MhBtn4);
+
+		this.MhBtn5 = new JButton("Remove Reservation");
+		this.MhBtn5.setBounds(190, 210, 220, 30);
+		this.MhPanel2.add(this.MhBtn5);
+		
+		this.MhBtn6 = new JButton("Remove Hotel");
+		this.MhBtn6.setBounds(190, 250, 220, 30);
+		this.MhPanel2.add(this.MhBtn6);
+
+		this.container.add(MhPanel2, "MhPanel2");
+
+		//change hotel name panel
+		this.CnPanel = new JPanel();
+		this.CnPanel.setLayout(null);
+
+		this.CnMenuBtn = new JButton("Main Menu");
+		this.CnMenuBtn.setBounds(0, 0, 100, 30);
+		this.CnPanel.add(this.CnMenuBtn);
+
+		this.CnTf = new JTextField();
+		this.CnTf.setBounds(217, 50, 166, 25);
+		this.CnPanel.add(this.CnTf);
+
+		this.CnEnterBtn = new JButton("Enter");
+		this.CnEnterBtn.setBounds(190, 130, 220, 30);
+		this.CnPanel.add(this.CnEnterBtn);
+
+		this.CnLbl = new JLabel();
+		this.CnLbl.setBounds(190, 210, 220, 30);
+		this.CnPanel.add(this.CnLbl);
+
+		this.container.add(CnPanel, "CnPanel");
+		
+		//add rooms panel
+		
+
 		//-------------------------------------------
 		this.mainFrame.setVisible(true);
 	}
@@ -261,10 +356,6 @@ public class View {
 
 	public void setMainMenuBtn1Listener(ActionListener actionListener) {
 		this.mainMenuBtn1.addActionListener(actionListener);
-	}
-
-	public void setMainMenuBtn2Listener(ActionListener actionListener) {
-		this.mainMenuBtn2.addActionListener(actionListener);
 	}
 
 	//main panel components
@@ -309,9 +400,9 @@ public class View {
 		this.createHotelTf.setText("");
 	}
 
-	//view hotel components
-	public void setVhMainMenuListener(ActionListener actionListener) {
-		this.VhMainMenuBtn.addActionListener(actionListener);
+	//view hotel panel 1 components
+	public void setMainMenuBtn2Listener(ActionListener actionListener) {
+		this.mainMenuBtn2.addActionListener(actionListener);
 	}
 
 	public void setViewHotelPanelTfText(String text) {
@@ -326,8 +417,17 @@ public class View {
 		this.VhEnterBtn.addActionListener(actionListener);
 	}
 
+	public void setVhTextArea(String text) {
+		this.VhTextArea.setText(text);
+	}
+
 	public void setVhLblText(String text) {
 		this.VhLbl.setText(text);
+	}
+
+	//view hotel panel2 components
+	public void setVhMainMenuListener(ActionListener actionListener) {
+		this.VhMainMenuBtn.addActionListener(actionListener);
 	}
 
 	public void setVHBtn1Listener(ActionListener actionListener) {
@@ -340,10 +440,6 @@ public class View {
 
 	public void setVHBtn3Listener(ActionListener actionListener) {
 		this.VHBtn3.addActionListener(actionListener);
-	}
-
-	public void setVhTextArea(String text) {
-		this.VhTextArea.setText(text);
 	}
 
 	//available and booked rooms components
@@ -438,5 +534,80 @@ public class View {
 
 	public void setIResTextArea(String text) {
 		this.IResTextArea.setText(text);
+	}
+
+	//manage hotel panel 1 components
+	public void setMhMenuBtn1Listener(ActionListener actionListener) {
+		this.MhMenuBtn1.addActionListener(actionListener);
+	}
+
+	public void setMhTfText(String text) {
+		this.MhTf.setText(text);
+	}
+
+	public String getMhTfText() {
+		return this.MhTf.getText();
+	}
+
+	public void setMhEnterBtnListener(ActionListener actionListener) {
+		this.MhEnterBtn.addActionListener(actionListener);
+	}
+
+	public void setMhTextArea(String text) {
+		this.MhTextArea.setText(text);
+	}
+
+	public void setMhLblText(String text) {
+		this.MhLbl.setText(text);
+	}
+
+	//manage hotel panel 2 components
+	public void setMhMenuBtn2Listener(ActionListener actionListener) {
+		this.MhMenuBtn2.addActionListener(actionListener);
+	}
+
+	public void setMhBtn1Listener(ActionListener actionListener) {
+		this.MhBtn1.addActionListener(actionListener);
+	}
+
+	public void setMhBtn2Listener(ActionListener actionListener) {
+		this.MhBtn2.addActionListener(actionListener);
+	}
+
+	public void setMhBtn3Listener(ActionListener actionListener) {
+		this.MhBtn3.addActionListener(actionListener);
+	}
+
+	public void setMhBtn4Listener(ActionListener actionListener) {
+		this.MhBtn4.addActionListener(actionListener);
+	}
+
+	public void setMhBtn5Listener(ActionListener actionListener) {
+		this.MhBtn5.addActionListener(actionListener);
+	}
+
+	public void setMhBtn6Listener(ActionListener actionListener) {
+		this.MhBtn6.addActionListener(actionListener);
+	}
+
+	//change hotel name components
+	public void setCnMenuBtnListener(ActionListener actionListener) {
+		this.CnMenuBtn.addActionListener(actionListener);
+	}
+
+	public void setCnTfText(String text) {
+		this.CnTf.setText(text);
+	}
+
+	public String getCnTfText() {
+		return this.CnTf.getText();
+	}
+
+	public void setCnEnterBtnListener(ActionListener actionListener) {
+		this.CnEnterBtn.addActionListener(actionListener);
+	}
+
+	public void setCnLblText(String text) {
+		this.CnLbl.setText(text);
 	}
 }	
