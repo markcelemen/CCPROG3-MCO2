@@ -7,18 +7,18 @@ public class RoomModel {
 		this.roomList = new ArrayList<Room>();
 	}
 
-	public void addStandardRoom(String name, double baseRate) {
-		Room room = new StandardRoom(name, baseRate);
+	public void addStandardRoom(String name, Hotel hotel) {
+		Room room = new StandardRoom(name, hotel);
 		roomList.add(room);
 	}
 
-	public void addDeluxeRoom(String name, double baseRate) {
-		Room room = new DeluxeRoom(name, baseRate);
+	public void addDeluxeRoom(String name, Hotel hotel) {
+		Room room = new DeluxeRoom(name, hotel);
 		roomList.add(room);
 	}
 
-	public void addExecutiveRoom(String name, double baseRate) {
-		Room room = new ExecutiveRoom(name, baseRate);
+	public void addExecutiveRoom(String name, Hotel hotel) {
+		Room room = new ExecutiveRoom(name, hotel);
 		roomList.add(room);
 	}
 

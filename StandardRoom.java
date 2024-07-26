@@ -1,13 +1,13 @@
 public class StandardRoom extends Room {
-    private double basePrice;
+    private Hotel hotel;
 
-    public StandardRoom(String name, double basePrice) {
+    public StandardRoom(String name, Hotel hotel) {
         super(name);
-        this.basePrice = basePrice;
+        this.hotel = hotel;
     }
 
     @Override
     public double getPrice() {
-        return basePrice; // Standard room rate is equal to the base rate
+        return this.hotel.getCostPerNight(); // Standard room rate is equal to the base rate
     }
 }

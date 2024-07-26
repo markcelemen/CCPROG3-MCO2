@@ -421,6 +421,9 @@ public class View {
 
 		this.container.add(RRoomPanel, "RRoomPanel");
 
+		// update price panel
+		// wip
+
 		//-------------------------------------------
 		this.mainFrame.setVisible(true);
 	}

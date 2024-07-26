@@ -53,8 +53,9 @@ public class Controller {
 					for (Hotel h : HRS.hotelModel.getHotelList()) {
 						hotelList += h.getName()+"\n";
 					}
+					view.setMhTextArea("Hotel list: \n"+hotelList);
+					view.setMhLbl2Text("");
 				}
-				view.setMhTextArea("Hotel list: \n"+hotelList);
 			}
 		});
 
@@ -457,21 +458,31 @@ public class Controller {
 		this.view.setMhBtn3Listener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				int ctr = 0;
+				for (Room r : chosenHotel.roomModel.getRoomList()){
+					if (!r.isReserved()) {
+						ctr++;
+					}
+				}
+
 				if (chosenHotel.roomModel.getRoomList().size() == 1) {
 					view.setMhLbl2Text("Hotel must have at least 1 room");
+				} else if (ctr == 0) {
+					view.setMhLbl2Text("All rooms have a reservation");
 				}
 				else {
+					String roomList = "";
 					view.getCardLayout().show(view.getContainer(), "RRoomPanel");
-					String stdList = "Standard Rooms:\n", delList = "Deluxe Rooms:\n", exList = "Executive Rooms\n";
 					for (Room r : chosenHotel.roomModel.getRoomList()) {
-					if (r instanceof StandardRoom) 
-						stdList += r.getName()+"\n";
-					if (r instanceof DeluxeRoom)
-						delList += r.getName()+"\n";
-					if (r instanceof ExecutiveRoom)
-						exList += r.getName()+"\n";
+						if (r instanceof StandardRoom) 
+							roomList += r.getName()+"(S)\n";
+						if (r instanceof DeluxeRoom)
+							roomList += r.getName()+"(D)\n";
+						if (r instanceof ExecutiveRoom)
+							roomList += r.getName()+"(E)\n";
 					}
-					view.setRRoomTextArea("List of Rooms:\n"+stdList+"\n"+delList+"\n"+exList);
+					view.setRRoomTextArea("List of Rooms without a reservation:\n"+roomList);
+					view.setRRoomLblText("Enter room to remove");
 				}
 			}
 		});
@@ -606,17 +617,21 @@ public class Controller {
 						break;
 					}
 				}
+				if (chosenHotel.roomModel.getRoomList().size() == 50) 
+					val = false;
 				if (val) {
 					if (chosenRoomType.equals("Standard"))
-					chosenHotel.roomModel.addStandardRoom(roomName, chosenHotel.getCostPerNight());
+					chosenHotel.roomModel.addStandardRoom(roomName, chosenHotel);
 					if (chosenRoomType.equals("Deluxe"))
-						chosenHotel.roomModel.addDeluxeRoom(roomName, chosenHotel.getCostPerNight());
+						chosenHotel.roomModel.addDeluxeRoom(roomName, chosenHotel);
 					if (chosenRoomType.equals("Executive"))
-						chosenHotel.roomModel.addExecutiveRoom(roomName, chosenHotel.getCostPerNight());
+						chosenHotel.roomModel.addExecutiveRoom(roomName, chosenHotel);
 					view.setArLblText("Room successfully added");
 					view.setArTfText("");
 				} else if (roomName.equals("")) {
-					view.setArLblText("invalid room name");
+					view.setArLblText("Invalid room name");
+				} else if (chosenHotel.roomModel.getRoomList().size() == 50){
+					view.setArLblText("Maximum number of rooms reached");
 				} else {
 					view.setArLblText("Room name must be unique");
 				}
@@ -641,6 +656,46 @@ public class Controller {
 			}
 		});
 
-		
+		this.view.setRRoomEnterBtnListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String roomName = view.getRRoomTfText();
+				boolean val = false, found = false;
+				
+				if (roomName.equals(""))
+					val = false;
+				for (Room r : chosenHotel.roomModel.getRoomList()) {
+					if (roomName.equals(r.getName())) {
+						if (!r.isReserved()){
+							val = true;
+							found = true;
+							break;
+						}
+					}
+				}
+				if (chosenHotel.roomModel.getRoomList().size() == 1) 
+					val = false;
+				if (val && found) {
+					chosenHotel.roomModel.removeRoom(roomName);
+					view.setRRoomLblText("Room successfully removed");
+					view.setRRoomTfText("");
+				} else if (roomName.equals("")) {
+					view.setRRoomLblText("Invalid room name");
+				} else if (found && chosenHotel.roomModel.getRoomList().size() == 1) {
+					view.setRRoomLblText("Hotel must have at least 1 room");
+				} else {
+					view.setRRoomLblText("Room not found in displayed list");
+				}
+				String roomList = "";
+				for (Room r : chosenHotel.roomModel.getRoomList()) {
+					if (r instanceof StandardRoom) 
+						roomList += r.getName()+"(S)\n";
+					if (r instanceof DeluxeRoom)
+						roomList += r.getName()+"(D)\n";
+					if (r instanceof ExecutiveRoom)
+						roomList += r.getName()+"(E)\n";
+				}
+				view.setRRoomTextArea("List of Rooms without a reservation:\n"+roomList);
+			}
+		});
 	}
 }

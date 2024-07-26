@@ -13,7 +13,7 @@ public class Hotel {
 		this.costPerNight = 1299.0;
 		this.earnings = 0.0;
 		this.roomModel = new RoomModel();
-		this.roomModel.addStandardRoom("101", this.costPerNight);
+		this.roomModel.addStandardRoom("101", this);
 		this.reservationModel = new ReservationModel();
 		this.dayList = new ArrayList<Day>();
 		for (int i = 1; i <= 31; i++)

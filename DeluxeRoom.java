@@ -1,13 +1,13 @@
 public class DeluxeRoom extends Room {
-    private double basePrice;
+    private Hotel hotel;
 
-    public DeluxeRoom(String name, double basePrice) {
+    public DeluxeRoom(String name, Hotel hotel) {
         super(name);
-        this.basePrice = basePrice;
+        this.hotel = hotel;
     }
 
     @Override
     public double getPrice() {
-        return basePrice * 1.2; // Deluxe room rate is 20% more than the base rate
+        return this.hotel.getCostPerNight() * 1.2; // Deluxe room rate is 20% more than the base rate
     }
 }
