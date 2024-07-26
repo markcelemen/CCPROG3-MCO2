@@ -6,6 +6,7 @@ public class Controller {
 	private HRS HRS;
 	private String chosenHotelName;
 	private Hotel chosenHotel;
+	private String chosenRoomType;
 
 	public Controller(HRS HRS, View view) {
 		this.view = view;
@@ -163,14 +164,20 @@ public class Controller {
 		this.view.setVHBtn2Listener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String roomList = "";
 				view.getCardLayout().show(view.getContainer(), "IRoomPanel");
 				view.setIRoomLblText("Enter room name.");
 				view.setIRoomTfText("");
 				
-				for (Room r : chosenHotel.roomModel.getRoomList())
-					roomList += r.getName() + "\n";
-				view.setIRoomTextArea("List of rooms: \n" +roomList);
+				String stdList = "Standard Rooms:\n", delList = "Deluxe Rooms:\n", exList = "Executive Rooms\n";
+				for (Room r : chosenHotel.roomModel.getRoomList()) {
+					if (r instanceof StandardRoom) 
+						stdList += r.getName()+"\n";
+					if (r instanceof DeluxeRoom)
+						delList += r.getName()+"\n";
+					if (r instanceof ExecutiveRoom)
+						exList += r.getName()+"\n";
+				}
+				view.setIRoomTextArea("List of Rooms:\n"+stdList+"\n"+delList+"\n"+exList);
 			}
 		});
 
@@ -222,18 +229,34 @@ public class Controller {
 						for (Room r : chosenHotel.roomModel.getRoomList()) {
 							if (r.isReserved()) {
 								if (r.isAvailable(day)) {
-									displayAvailable += r.getName() + "\n";
+									if (r instanceof StandardRoom)
+										displayAvailable += r.getName() + "(S)\n";
+									if (r instanceof DeluxeRoom)
+										displayAvailable += r.getName() + "(D)\n";
+									if (r instanceof ExecutiveRoom)
+										displayAvailable += r.getName() + "(E)\n";
 								}
 								else {
-									displayBooked += r.getName() + "\n";
+									if (r instanceof StandardRoom)
+										displayBooked += r.getName() + "(S)\n";
+									if (r instanceof DeluxeRoom)
+										displayBooked += r.getName() + "(D)\n";
+									if (r instanceof ExecutiveRoom)
+										displayBooked += r.getName() + "(E)\n";
 								}
 							} else {
-								displayAvailable += r.getName() + "\n";
+								if (r instanceof StandardRoom)
+									displayAvailable += r.getName() + "(S)\n";
+								if (r instanceof DeluxeRoom)
+									displayAvailable += r.getName() + "(D)\n";
+								if (r instanceof ExecutiveRoom)
+									displayAvailable += r.getName() + "(E)\n";
 							}
 						}
 						view.setAbTextArea("Hotel name: " +chosenHotel.getName()+"\nTotal number of rooms: "+chosenHotel.roomModel.getRoomList().size()+
 						"\nTotal earnings: "+chosenHotel.getEarnings() + "\n\n"
 						+"Booked rooms:\n"+ displayBooked + "\nAvailable rooms: \n" + displayAvailable);
+						view.setAbLblText("Viewing hotel "+chosenHotel.getName()+" and day "+day+" availability");
 					}
 				else
 					view.setAbLblText("Invalid input");
@@ -254,11 +277,18 @@ public class Controller {
 			public void actionPerformed(ActionEvent e) {
 				String roomName = view.getIRoomTfText();
 				boolean val = false;
+				String displayType = "";
 				String displayAvailability = "";
 				String displayPrice = "";
-				String roomList = "";
-				for (Room r : chosenHotel.roomModel.getRoomList())
-					roomList += r.getName() + "\n";
+				String stdList = "Standard Rooms:\n", delList = "Deluxe Rooms:\n", exList = "Executive Rooms\n";
+				for (Room r : chosenHotel.roomModel.getRoomList()) {
+					if (r instanceof StandardRoom) 
+						stdList += r.getName()+"\n";
+					if (r instanceof DeluxeRoom)
+						delList += r.getName()+"\n";
+					if (r instanceof ExecutiveRoom)
+						exList += r.getName()+"\n";
+				}
 				for (Room r : chosenHotel.roomModel.getRoomList()) {
 					if (roomName.equals(r.getName())) {
 						for (int i = 1; i <= 31; i++) {
@@ -276,17 +306,27 @@ public class Controller {
 								displayPrice += "\n\n";
 							displayPrice += "Day " + String.format("%02d", d.getDay()) + ": " + (d.getRate() * r.getPrice()) + "    ";
 						}
+						if (r instanceof StandardRoom)
+							displayType += "Standard";
+						if (r instanceof DeluxeRoom)
+							displayType += "Deluxe";
+						if (r instanceof ExecutiveRoom)
+							displayType += "Executive";
+
 						val = true;
 						break;
 					}
 				}
 				if (!val) {
-					view.setIRoomLblText("Room not found.");
-					view.setIRoomTextArea("List of rooms:\n"+roomList);
+					view.setIRoomLblText("Room not found");
+					view.setIRoomTextArea("List of Rooms:\n"+stdList+"\n"+delList+"\n"+exList);
 				}
-				else
-				view.setIRoomTextArea("Hotel name: " +chosenHotel.getName()+"\nTotal number of rooms: "+chosenHotel.roomModel.getRoomList().size()+
-				"\nTotal earnings: "+chosenHotel.getEarnings() +"\n\n"+"Days available within the month:\n" + displayAvailability + "\n\nPrice per night:\n" + displayPrice);
+				else {
+					view.setIRoomTextArea("Hotel name: " +chosenHotel.getName()+"\nTotal number of rooms: "+chosenHotel.roomModel.getRoomList().size()+
+					"\nTotal earnings: "+chosenHotel.getEarnings() +"\n\n"+"Room type: "+displayType+
+					"\n\nDays available within the month:\n" + displayAvailability + "\n\nPrice per night:\n" + displayPrice);
+					view.setIRoomLblText("Viewing hotel "+chosenHotel.getName()+" and room "+roomName);
+				}
 			}
 		});
 
@@ -346,7 +386,9 @@ public class Controller {
 					view.setIResTextArea("List of reservations: \n" +resList);
 				}
 				else {
-					view.setIResTextArea(display);
+					view.setIResTextArea("Hotel name: " +chosenHotel.getName()+"\nTotal number of rooms: "+chosenHotel.roomModel.getRoomList().size()+
+					"\nTotal earnings: "+chosenHotel.getEarnings() +"\n\n"+display);
+					view.setIResLblText("Viewing hotel "+chosenHotel.getName()+" with selected reservation");
 				}
 			}
 		});
@@ -403,7 +445,34 @@ public class Controller {
 		this.view.setMhBtn2Listener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				view.getCardLayout().show(view.getContainer(), "ArPanel1");
+				if (chosenHotel.roomModel.getRoomList().size() == 50) {
+					view.setMhLbl2Text("Maximum number of rooms reached");
+				}
+				else {
+					view.getCardLayout().show(view.getContainer(), "ArPanel1");
+				}
+			}
+		});
+
+		this.view.setMhBtn3Listener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (chosenHotel.roomModel.getRoomList().size() == 1) {
+					view.setMhLbl2Text("Hotel must have at least 1 room");
+				}
+				else {
+					view.getCardLayout().show(view.getContainer(), "RRoomPanel");
+					String stdList = "Standard Rooms:\n", delList = "Deluxe Rooms:\n", exList = "Executive Rooms\n";
+					for (Room r : chosenHotel.roomModel.getRoomList()) {
+					if (r instanceof StandardRoom) 
+						stdList += r.getName()+"\n";
+					if (r instanceof DeluxeRoom)
+						delList += r.getName()+"\n";
+					if (r instanceof ExecutiveRoom)
+						exList += r.getName()+"\n";
+					}
+					view.setRRoomTextArea("List of Rooms:\n"+stdList+"\n"+delList+"\n"+exList);
+				}
 			}
 		});
 
@@ -450,5 +519,128 @@ public class Controller {
 				view.setMainPanelLbl("");
 			}
 		});
+
+		this.view.setArStdBtnListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.getCardLayout().show(view.getContainer(), "ArPanel2");
+				chosenRoomType = "Standard";
+
+				String stdList = "Standard Rooms:\n", delList = "Deluxe Rooms:\n", exList = "Executive Rooms\n";
+				for (Room r : chosenHotel.roomModel.getRoomList()) {
+					if (r instanceof StandardRoom) 
+						stdList += r.getName()+"\n";
+					if (r instanceof DeluxeRoom)
+						delList += r.getName()+"\n";
+					if (r instanceof ExecutiveRoom)
+						exList += r.getName()+"\n";
+				}
+				view.setArTfText("");
+				view.setArLblText("Add "+chosenRoomType+" Room");
+				view.setArTextArea("List of Rooms:\n"+stdList+"\n"+delList+"\n"+exList);
+			}
+		});
+
+		this.view.setArDelBtnListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.getCardLayout().show(view.getContainer(), "ArPanel2");
+				chosenRoomType = "Deluxe";
+
+				String stdList = "Standard Rooms:\n", delList = "Deluxe Rooms:\n", exList = "Executive Rooms\n";
+				for (Room r : chosenHotel.roomModel.getRoomList()) {
+					if (r instanceof StandardRoom) 
+						stdList += r.getName()+"\n";
+					if (r instanceof DeluxeRoom)
+						delList += r.getName()+"\n";
+					if (r instanceof ExecutiveRoom)
+						exList += r.getName()+"\n";
+				}
+				view.setArTfText("");
+				view.setArLblText("Add "+chosenRoomType+" Room");
+				view.setArTextArea("List of Rooms:\n"+stdList+"\n"+delList+"\n"+exList);
+			}
+		});
+
+		this.view.setArExBtnListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.getCardLayout().show(view.getContainer(), "ArPanel2");
+				chosenRoomType = "Executive";
+
+				String stdList = "Standard Rooms:\n", delList = "Deluxe Rooms:\n", exList = "Executive Rooms\n";
+				for (Room r : chosenHotel.roomModel.getRoomList()) {
+					if (r instanceof StandardRoom) 
+						stdList += r.getName()+"\n";
+					if (r instanceof DeluxeRoom)
+						delList += r.getName()+"\n";
+					if (r instanceof ExecutiveRoom)
+						exList += r.getName()+"\n";
+				}
+				view.setArTfText("");
+				view.setArLblText("Add "+chosenRoomType+" Room");
+				view.setArTextArea("List of Rooms:\n"+stdList+"\n"+delList+"\n"+exList);
+			}	
+		});
+
+		//add room panel 2 components
+		this.view.setArMenuBtn2Listener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.getCardLayout().show(view.getContainer(), "mainPanel");
+				view.setMainPanelLbl("");
+			}
+		});
+
+		this.view.setArEnterBtnListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String roomName = view.getArTfText();
+				boolean val = true;
+				String stdList = "Standard Rooms:\n", delList = "Deluxe Rooms:\n", exList = "Executive Rooms\n";
+				if (roomName.equals(""))
+					val = false;
+				for (Room r : chosenHotel.roomModel.getRoomList()) {
+					if (roomName.equals(r.getName())) {
+						val = false;
+						break;
+					}
+				}
+				if (val) {
+					if (chosenRoomType.equals("Standard"))
+					chosenHotel.roomModel.addStandardRoom(roomName, chosenHotel.getCostPerNight());
+					if (chosenRoomType.equals("Deluxe"))
+						chosenHotel.roomModel.addDeluxeRoom(roomName, chosenHotel.getCostPerNight());
+					if (chosenRoomType.equals("Executive"))
+						chosenHotel.roomModel.addExecutiveRoom(roomName, chosenHotel.getCostPerNight());
+					view.setArLblText("Room successfully added");
+					view.setArTfText("");
+				} else if (roomName.equals("")) {
+					view.setArLblText("invalid room name");
+				} else {
+					view.setArLblText("Room name must be unique");
+				}
+				for (Room r : chosenHotel.roomModel.getRoomList()) {
+					if (r instanceof StandardRoom) 
+						stdList += r.getName()+"\n";
+					if (r instanceof DeluxeRoom)
+						delList += r.getName()+"\n";
+					if (r instanceof ExecutiveRoom)
+						exList += r.getName()+"\n";
+				}
+				view.setArTextArea("List of Rooms:\n"+stdList+"\n"+delList+"\n"+exList);
+			}
+		});
+
+		//remove rooms components
+		this.view.setRRoomMenuBtnListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.getCardLayout().show(view.getContainer(), "mainPanel");
+				view.setMainPanelLbl("");
+			}
+		});
+
+		
 	}
 }

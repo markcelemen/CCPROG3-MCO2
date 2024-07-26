@@ -8,15 +8,15 @@ public class View {
 	private JFrame mainFrame;
 	private JPanel mainPanel, createHotelPanel, viewHotelPanel, 
 				   viewHotelPanel2, AbPanel, IRoomPanel, IResPanel,
-				   MhPanel1, MhPanel2, CnPanel, ArPanel1, ArPanel2
+				   MhPanel1, MhPanel2, CnPanel, ArPanel1, ArPanel2, RRoomPanel
 				   ;
 	private JLabel mainPanelLbl, createHotelLbl, VhLbl, MhLbl, 
 						AbLbl, IRoomLbl, IResLbl, IResNameLbl, IResInLbl, IResOutLbl, IResRoomLbl,
-						CnLbl, ArLbl
+						MhLbl2, CnLbl, ArLbl, RRoomLbl
 						;
 	private JTextField createHotelTf, 
 					   viewHotelPanelTf, AbEnterTf, IRoomTf, IResNameTf, IResInTf, IResOutTf, IResRoomTf,
-					   MhTf, CnTf, ArTf
+					   MhTf, CnTf, ArTf, RRoomTf
 					   ;
 	private JButton createHotelBtn, viewHotelBtn, manageHotelBtn, simulateBtn, datePriceBtn, // main menu buttons
 					mainMenuBtn1, enterHotelBtn1, // create hotel buttons
@@ -26,10 +26,12 @@ public class View {
 						IResMenuBtn, IResEnterBtn,
 					MhMenuBtn1, MhEnterBtn, MhMenuBtn2, MhBtn1, MhBtn2, MhBtn3, MhBtn4, MhBtn5, MhBtn6, // manage hotel buttons
 						CnMenuBtn, CnEnterBtn,
-						ArMenuBtn1, ArMenuBtn2, ArStdBtn, ArDelBtn, ArExBtn, ArEnterBtn
+						ArMenuBtn1, ArMenuBtn2, ArStdBtn, ArDelBtn, ArExBtn, ArEnterBtn,
+						RRoomMenuBtn, RRoomEnterBtn
 					;
 	private JTextArea VhTextArea, AbTextArea, IRoomTextArea, IResTextArea,
-				      MhTextArea, ArTextArea;
+				      MhTextArea, ArTextArea, RRoomTextArea
+					  ;
 	private Container container;
 	private CardLayout cardLayout;
 	
@@ -315,6 +317,10 @@ public class View {
 		this.MhBtn6.setBounds(190, 250, 220, 30);
 		this.MhPanel2.add(this.MhBtn6);
 
+		this.MhLbl2 = new JLabel();
+		this.MhLbl2.setBounds(190, 290, 220, 30);
+		this.MhPanel2.add(MhLbl2);
+
 		this.container.add(MhPanel2, "MhPanel2");
 
 		//change hotel name panel
@@ -387,6 +393,33 @@ public class View {
 		this.ArPanel2.add(this.ArTextArea);
 
 		this.container.add(ArPanel2, "ArPanel2");
+
+		// remove rooms panel
+		this.RRoomPanel = new JPanel();
+		this.RRoomPanel.setLayout(null);
+
+		this.RRoomMenuBtn = new JButton("Main Menu");
+		this.RRoomMenuBtn.setBounds(0, 0, 100, 30);
+		this.RRoomPanel.add(this.RRoomMenuBtn);
+
+		this.RRoomTf = new JTextField();
+		this.RRoomTf.setBounds(217, 50, 166, 25);
+		this.RRoomPanel.add(this.RRoomTf);
+
+		this.RRoomEnterBtn = new JButton("Enter");
+		this.RRoomEnterBtn.setBounds(190, 130, 220, 30);
+		this.RRoomPanel.add(this.RRoomEnterBtn);
+
+		this.RRoomLbl = new JLabel();
+		this.RRoomLbl.setBounds(190, 210, 220, 30);
+		this.RRoomPanel.add(this.RRoomLbl);
+
+		this.RRoomTextArea = new JTextArea();
+		this.RRoomTextArea.setBounds(5, 300, 580, 400);
+		this.RRoomTextArea.setEditable(false);
+		this.RRoomPanel.add(this.RRoomTextArea);
+
+		this.container.add(RRoomPanel, "RRoomPanel");
 
 		//-------------------------------------------
 		this.mainFrame.setVisible(true);
@@ -637,6 +670,10 @@ public class View {
 		this.MhBtn6.addActionListener(actionListener);
 	}
 
+	public void setMhLbl2Text(String text) {
+		this.MhLbl2.setText(text);
+	}
+
 	//change hotel name components
 	public void setCnMenuBtnListener(ActionListener actionListener) {
 		this.CnMenuBtn.addActionListener(actionListener);
@@ -676,5 +713,52 @@ public class View {
 	}
 
 	//add room panel 2 components
-	//wip
+	public void setArMenuBtn2Listener(ActionListener actionListener) {
+		this.ArMenuBtn2.addActionListener(actionListener);
+	}
+
+	public void setArTfText(String text) {
+		this.ArTf.setText(text);
+	}
+
+	public String getArTfText() {
+		return this.ArTf.getText();
+	}
+
+	public void setArEnterBtnListener(ActionListener actionListener) {
+		this.ArEnterBtn.addActionListener(actionListener);
+	}
+
+	public void setArLblText(String text) {
+		this.ArLbl.setText(text);
+	}
+
+	public void setArTextArea(String text) {
+		this.ArTextArea.setText(text);
+	}
+
+	//remove rooms components
+	public void setRRoomMenuBtnListener(ActionListener actionListener) {
+		this.RRoomMenuBtn.addActionListener(actionListener);
+	}
+
+	public void setRRoomTfText(String text) {
+		this.RRoomTf.setText(text);
+	}
+
+	public String getRRoomTfText() {
+		return this.RRoomTf.getText();
+	}
+
+	public void setRRoomEnterBtnListener(ActionListener actionListener) {
+		this.RRoomEnterBtn.addActionListener(actionListener);
+	}
+
+	public void setRRoomLblText(String text) {
+		this.RRoomLbl.setText(text);
+	}
+
+	public void setRRoomTextArea(String text) {
+		this.RRoomTextArea.setText(text);
+	}
 }	
