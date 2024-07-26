@@ -8,15 +8,15 @@ public class View {
 	private JFrame mainFrame;
 	private JPanel mainPanel, createHotelPanel, viewHotelPanel, 
 				   viewHotelPanel2, AbPanel, IRoomPanel, IResPanel,
-				   MhPanel1, MhPanel2, CnPanel
+				   MhPanel1, MhPanel2, CnPanel, ArPanel1, ArPanel2
 				   ;
 	private JLabel mainPanelLbl, createHotelLbl, VhLbl, MhLbl, 
 						AbLbl, IRoomLbl, IResLbl, IResNameLbl, IResInLbl, IResOutLbl, IResRoomLbl,
-						CnLbl
+						CnLbl, ArLbl
 						;
 	private JTextField createHotelTf, 
 					   viewHotelPanelTf, AbEnterTf, IRoomTf, IResNameTf, IResInTf, IResOutTf, IResRoomTf,
-					   MhTf, CnTf
+					   MhTf, CnTf, ArTf
 					   ;
 	private JButton createHotelBtn, viewHotelBtn, manageHotelBtn, simulateBtn, datePriceBtn, // main menu buttons
 					mainMenuBtn1, enterHotelBtn1, // create hotel buttons
@@ -25,10 +25,11 @@ public class View {
 						IRoomMenuBtn, IRoomEnterBtn,
 						IResMenuBtn, IResEnterBtn,
 					MhMenuBtn1, MhEnterBtn, MhMenuBtn2, MhBtn1, MhBtn2, MhBtn3, MhBtn4, MhBtn5, MhBtn6, // manage hotel buttons
-						CnMenuBtn, CnEnterBtn
+						CnMenuBtn, CnEnterBtn,
+						ArMenuBtn1, ArMenuBtn2, ArStdBtn, ArDelBtn, ArExBtn, ArEnterBtn
 					;
 	private JTextArea VhTextArea, AbTextArea, IRoomTextArea, IResTextArea,
-				      MhTextArea;
+				      MhTextArea, ArTextArea;
 	private Container container;
 	private CardLayout cardLayout;
 	
@@ -338,8 +339,54 @@ public class View {
 
 		this.container.add(CnPanel, "CnPanel");
 		
-		//add rooms panel
-		
+		//add rooms panel 1
+		this.ArPanel1 = new JPanel();
+		this.ArPanel1.setLayout(null);
+
+		this.ArMenuBtn1 = new JButton("Main Menu");
+		this.ArMenuBtn1.setBounds(0, 0, 100, 30);
+		this.ArPanel1.add(this.ArMenuBtn1);
+
+		this.ArStdBtn = new JButton("Add Standard Room");
+		this.ArStdBtn.setBounds(190, 50, 220, 30);
+		this.ArPanel1.add(this.ArStdBtn);
+
+		this.ArDelBtn = new JButton("Add Deluxe Room");
+		this.ArDelBtn.setBounds(190, 90, 220, 30);
+		this.ArPanel1.add(this.ArDelBtn);
+
+		this.ArExBtn = new JButton("Add Executive Room");
+		this.ArExBtn.setBounds(190, 130, 220, 30);
+		this.ArPanel1.add(this.ArExBtn);
+
+		this.container.add(ArPanel1, "ArPanel1");
+
+		//add rooms panel 2
+		this.ArPanel2 = new JPanel();
+		this.ArPanel2.setLayout(null);
+
+		this.ArMenuBtn2 = new JButton("Main Menu");
+		this.ArMenuBtn2.setBounds(0, 0, 100, 30);
+		this.ArPanel2.add(this.ArMenuBtn2);
+
+		this.ArTf = new JTextField();
+		this.ArTf.setBounds(217, 50, 166, 25);
+		this.ArPanel2.add(this.ArTf);
+
+		this.ArEnterBtn = new JButton("Enter");
+		this.ArEnterBtn.setBounds(190, 130, 220, 30);
+		this.ArPanel2.add(this.ArEnterBtn);
+
+		this.ArLbl = new JLabel();
+		this.ArLbl.setBounds(190, 210, 220, 30);
+		this.ArPanel2.add(this.ArLbl);
+
+		this.ArTextArea = new JTextArea();
+		this.ArTextArea.setBounds(5, 300, 580, 400);
+		this.ArTextArea.setEditable(false);
+		this.ArPanel2.add(this.ArTextArea);
+
+		this.container.add(ArPanel2, "ArPanel2");
 
 		//-------------------------------------------
 		this.mainFrame.setVisible(true);
@@ -610,4 +657,24 @@ public class View {
 	public void setCnLblText(String text) {
 		this.CnLbl.setText(text);
 	}
+
+	// add room panel 1 components
+	public void setArMenuBtn1Listener(ActionListener actionListener) {
+		this.ArMenuBtn1.addActionListener(actionListener);
+	}
+
+	public void setArStdBtnListener(ActionListener actionListener) {
+		this.ArStdBtn.addActionListener(actionListener);
+	}
+
+	public void setArDelBtnListener(ActionListener actionListener) {
+		this.ArDelBtn.addActionListener(actionListener);
+	}
+
+	public void setArExBtnListener(ActionListener actionListener) {
+		this.ArExBtn.addActionListener(actionListener);
+	}
+
+	//add room panel 2 components
+	//wip
 }	

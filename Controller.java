@@ -29,7 +29,7 @@ public class Controller {
 				}
 				else {
 					view.setViewHotelPanelTfText("");
-					view.setVhLblText("Enter hotel name");
+					view.setVhLblText("Enter hotel name to view");
 					view.getCardLayout().show(view.getContainer(), "viewHotelPanel2");
 					for (Hotel h : HRS.hotelModel.getHotelList()) {
 						hotelList += h.getName()+"\n";
@@ -47,7 +47,7 @@ public class Controller {
 					view.setMainPanelLbl("No hotels added to the system");
 				else {
 					view.setMhTfText("");
-					view.setMhLblText("Enter hotel name");
+					view.setMhLblText("Enter hotel name to modify");
 					view.getCardLayout().show(view.getContainer(), "MhPanel1");
 					for (Hotel h : HRS.hotelModel.getHotelList()) {
 						hotelList += h.getName()+"\n";
@@ -185,7 +185,8 @@ public class Controller {
 				for (Reservation r : chosenHotel.reservationModel.getReservationList())
 					resList += "Name: "+String.format("%-20s", r.getGuestName()) + String.format(" Check-in: %02d  ", r.getCheckIn())
 					+String.format(" Check-out: %02d  ", r.getCheckOut()) + " Room: "+r.getRoom().getName();
-
+				if (chosenHotel.reservationModel.getReservationList().size() == 0)
+					resList += "No reservations made for "+chosenHotel.getName();
 				view.setIResTextArea("List of reservations: \n" +resList);
 			}
 		});
@@ -263,11 +264,11 @@ public class Controller {
 						for (int i = 1; i <= 31; i++) {
 							if (r.isReserved()) {
 								if (r.isAvailable(i)) {
-									displayAvailability += i+" ";
+									displayAvailability += i+"  ";
 								}
 							}
 							else {
-								displayAvailability += i+" ";
+								displayAvailability += i+"  ";
 							}
 						}
 						for (Day d : chosenHotel.getDayList()) {
@@ -315,11 +316,11 @@ public class Controller {
 				} catch (Exception d) {
 					
 				}
-				
+				if (chosenHotel.reservationModel.getReservationList().size() == 0)
+					resList += "No reservations made for "+chosenHotel.getName();
 				for (Reservation r : chosenHotel.reservationModel.getReservationList())
 					resList += "Name: "+String.format("%-20s", r.getGuestName()) + String.format(" Check-in: %02d  ", r.getCheckIn())
 					+String.format(" Check-out: %02d  ", r.getCheckOut()) + " Room: "+r.getRoom().getName();
-				
 				if (result == true)
 				for (Reservation r : chosenHotel.reservationModel.getReservationList()) {
 					if (resName.equals(r.getGuestName()) &&
@@ -399,6 +400,13 @@ public class Controller {
 			}
 		});
 
+		this.view.setMhBtn2Listener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.getCardLayout().show(view.getContainer(), "ArPanel1");
+			}
+		});
+
 		//change hotel name components
 		this.view.setCnMenuBtnListener(new ActionListener() {
 			@Override
@@ -431,6 +439,15 @@ public class Controller {
 						view.setCnLblText("Hotel name must be unique/different");
 					}
 				}
+			}
+		});
+
+		//add room panel 1 components
+		this.view.setArMenuBtn1Listener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.getCardLayout().show(view.getContainer(), "mainPanel");
+				view.setMainPanelLbl("");
 			}
 		});
 	}
