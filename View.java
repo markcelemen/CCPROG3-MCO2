@@ -8,15 +8,15 @@ public class View {
 	private JFrame mainFrame;
 	private JPanel mainPanel, createHotelPanel, viewHotelPanel, 
 				   viewHotelPanel2, AbPanel, IRoomPanel, IResPanel,
-				   MhPanel1, MhPanel2, CnPanel, ArPanel1, ArPanel2, RRoomPanel
+				   MhPanel1, MhPanel2, CnPanel, ArPanel1, ArPanel2, RRoomPanel, UpPanel
 				   ;
 	private JLabel mainPanelLbl, createHotelLbl, VhLbl, MhLbl, 
 						AbLbl, IRoomLbl, IResLbl, IResNameLbl, IResInLbl, IResOutLbl, IResRoomLbl,
-						MhLbl2, CnLbl, ArLbl, RRoomLbl
+						MhLbl2, CnLbl, ArLbl, RRoomLbl, UpLbl
 						;
 	private JTextField createHotelTf, 
 					   viewHotelPanelTf, AbEnterTf, IRoomTf, IResNameTf, IResInTf, IResOutTf, IResRoomTf,
-					   MhTf, CnTf, ArTf, RRoomTf
+					   MhTf, CnTf, ArTf, RRoomTf, UpTf
 					   ;
 	private JButton createHotelBtn, viewHotelBtn, manageHotelBtn, simulateBtn, datePriceBtn, // main menu buttons
 					mainMenuBtn1, enterHotelBtn1, // create hotel buttons
@@ -27,7 +27,8 @@ public class View {
 					MhMenuBtn1, MhEnterBtn, MhMenuBtn2, MhBtn1, MhBtn2, MhBtn3, MhBtn4, MhBtn5, MhBtn6, // manage hotel buttons
 						CnMenuBtn, CnEnterBtn,
 						ArMenuBtn1, ArMenuBtn2, ArStdBtn, ArDelBtn, ArExBtn, ArEnterBtn,
-						RRoomMenuBtn, RRoomEnterBtn
+						RRoomMenuBtn, RRoomEnterBtn,
+						UpMenuBtn, UpEnterBtn
 					;
 	private JTextArea VhTextArea, AbTextArea, IRoomTextArea, IResTextArea,
 				      MhTextArea, ArTextArea, RRoomTextArea
@@ -763,5 +764,26 @@ public class View {
 
 	public void setRRoomTextArea(String text) {
 		this.RRoomTextArea.setText(text);
+	}
+
+	// update base price components
+	public void setUpMenuBtnListener(ActionListener actionListener) {
+		this.UpMenuBtn.addActionListener(actionListener);
+	}
+
+	public void setUpTfText(String text) {
+		this.UpTf.setText(text);
+	}
+
+	public String getUpTfText() {
+		return this.UpTf.getText();
+	}
+
+	public void setUpEnterBtnListener(ActionListener actionListener) {
+		this.UpEnterBtn.addActionListener(actionListener);
+	}
+
+	public void setUpLblText(String text) {
+		this.UpLbl.setText(text);
 	}
 }	

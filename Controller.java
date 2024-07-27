@@ -697,5 +697,8 @@ public class Controller {
 				view.setRRoomTextArea("List of Rooms without a reservation:\n"+roomList);
 			}
 		});
+
+		// update base price components
+		//wip
 	}
 }
