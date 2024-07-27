@@ -487,6 +487,18 @@ public class Controller {
 			}
 		});
 
+		this.view.setMhBtn4Listener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (chosenHotel.reservationModel.getReservationList().size() == 0) {
+					view.getCardLayout().show(view.getContainer(), "UpPanel");
+					view.setUpLblText("Enter new base price for a room");
+				} else {
+					view.setMhLbl2Text("Hotel must have no reservations");
+				}
+			}
+		});
+
 		//change hotel name components
 		this.view.setCnMenuBtnListener(new ActionListener() {
 			@Override
@@ -699,6 +711,38 @@ public class Controller {
 		});
 
 		// update base price components
-		//wip
+		this.view.setUpMenuBtnListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.getCardLayout().show(view.getContainer(), "mainPanel");
+				view.setMainPanelLbl("");
+			}
+		});
+
+		this.view.setUpEnterBtnListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				double input = 0;
+				boolean result = false;
+				try {
+					input = Double.parseDouble(view.getUpTfText());
+					result = true;
+				} catch (Exception d) {
+					
+				}
+
+				if (result) {
+					if (input >= 100) {
+						chosenHotel.setCostPerNight(input);
+						view.setUpLblText("Base price successfully changed");
+						view.setUpTfText("");
+					} else {
+						view.setUpLblText("Base price must be at least 100.0");
+					}
+				} else {
+					view.setUpLblText("Invalid input");
+				}
+			}
+		});
 	}
 }

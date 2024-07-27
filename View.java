@@ -423,7 +423,26 @@ public class View {
 		this.container.add(RRoomPanel, "RRoomPanel");
 
 		// update price panel
-		// wip
+		this.UpPanel = new JPanel();
+		this.UpPanel.setLayout(null);
+
+		this.UpMenuBtn = new JButton("Main Menu");
+		this.UpMenuBtn.setBounds(0, 0, 100, 30);
+		this.UpPanel.add(this.UpMenuBtn);
+
+		this.UpTf = new JTextField();
+		this.UpTf.setBounds(217, 50, 166, 25);
+		this.UpPanel.add(this.UpTf);
+
+		this.UpEnterBtn = new JButton("Enter");
+		this.UpEnterBtn.setBounds(190, 130, 220, 30);
+		this.UpPanel.add(this.UpEnterBtn);
+
+		this.UpLbl = new JLabel();
+		this.UpLbl.setBounds(190, 210, 220, 30);
+		this.UpPanel.add(this.UpLbl);
+		
+		this.container.add(UpPanel, "UpPanel");
 
 		//-------------------------------------------
 		this.mainFrame.setVisible(true);
