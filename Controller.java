@@ -371,7 +371,12 @@ public class Controller {
 						display += "Guest name: "+r.getGuestName()+"\n";
 						display += "Check-in day: "+String.format("%02",r.getCheckIn())+"\n";
 						display += "Check-out day: "+String.format("%02",r.getCheckOut())+"\n";
-						display += "Room: "+r.getRoom().getName()+"\n\n";
+						if (r.getRoom() instanceof StandardRoom) 
+							display += r.getRoom().getName()+"(S)\n";
+						if (r.getRoom() instanceof DeluxeRoom)
+							display += r.getRoom().getName()+"(D)\n";
+						if (r.getRoom() instanceof ExecutiveRoom)
+							display += r.getRoom().getName()+"(E)\n";
 						display += "Price per night:\n";
 						for (Day d : r.getDayList()) {
 							display += "Day "+String.format("%02: ", d.getDay())+ (r.getRoom().getPrice() * d.getRate())+"\n\n";

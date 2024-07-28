@@ -8,15 +8,15 @@ public class View {
 	private JFrame mainFrame;
 	private JPanel mainPanel, createHotelPanel, viewHotelPanel, 
 				   viewHotelPanel2, AbPanel, IRoomPanel, IResPanel,
-				   MhPanel1, MhPanel2, CnPanel, ArPanel1, ArPanel2, RRoomPanel, UpPanel
+				   MhPanel1, MhPanel2, CnPanel, ArPanel1, ArPanel2, RRoomPanel, UpPanel, RResPanel
 				   ;
 	private JLabel mainPanelLbl, createHotelLbl, VhLbl, MhLbl, 
 						AbLbl, IRoomLbl, IResLbl, IResNameLbl, IResInLbl, IResOutLbl, IResRoomLbl,
-						MhLbl2, CnLbl, ArLbl, RRoomLbl, UpLbl
+						MhLbl2, CnLbl, ArLbl, RRoomLbl, UpLbl, RResLbl, RResNameLbl, RResInLbl, RResOutLbl, RResRoomLbl
 						;
 	private JTextField createHotelTf, 
 					   viewHotelPanelTf, AbEnterTf, IRoomTf, IResNameTf, IResInTf, IResOutTf, IResRoomTf,
-					   MhTf, CnTf, ArTf, RRoomTf, UpTf
+					   MhTf, CnTf, ArTf, RRoomTf, UpTf, RResNameTf, RResInTf, RResOutTf, RResRoomTf
 					   ;
 	private JButton createHotelBtn, viewHotelBtn, manageHotelBtn, simulateBtn, datePriceBtn, // main menu buttons
 					mainMenuBtn1, enterHotelBtn1, // create hotel buttons
@@ -28,10 +28,11 @@ public class View {
 						CnMenuBtn, CnEnterBtn,
 						ArMenuBtn1, ArMenuBtn2, ArStdBtn, ArDelBtn, ArExBtn, ArEnterBtn,
 						RRoomMenuBtn, RRoomEnterBtn,
-						UpMenuBtn, UpEnterBtn
+						UpMenuBtn, UpEnterBtn,
+						RResMenuBtn, RResEnterBtn
 					;
 	private JTextArea VhTextArea, AbTextArea, IRoomTextArea, IResTextArea,
-				      MhTextArea, ArTextArea, RRoomTextArea
+				      MhTextArea, ArTextArea, RRoomTextArea, RResTextArea
 					  ;
 	private Container container;
 	private CardLayout cardLayout;
@@ -444,6 +445,61 @@ public class View {
 		
 		this.container.add(UpPanel, "UpPanel");
 
+		// remove reservation label
+		this.RResPanel = new JPanel();
+		this.RResPanel.setLayout(null);
+
+		this.RResMenuBtn = new JButton("Main Menu");
+		this.RResMenuBtn.setBounds(0, 0, 100, 30);
+		this.RResPanel.add(this.RResMenuBtn);
+		
+		this.RResNameLbl = new JLabel("Name:");
+		this.RResNameLbl.setBounds(110, 5, 220, 30);
+		this.RResPanel.add(this.RResNameLbl);
+
+		this.RResInLbl = new JLabel("Check-in day:");
+		this.RResInLbl.setBounds(110, 25, 220, 30);
+		this.RResPanel.add(this.RResInLbl);
+
+		this.RResOutLbl = new JLabel("Check-out day:");
+		this.RResOutLbl.setBounds(110, 45, 220, 30);
+		this.RResPanel.add(this.RResOutLbl);
+
+		this.RResRoomLbl = new JLabel("Room:");
+		this.RResRoomLbl.setBounds(110, 65, 220, 30);
+		this.RResPanel.add(this.RResRoomLbl);
+
+		this.RResNameTf = new JTextField();
+		this.RResNameTf.setBounds(217, 10, 166, 25);
+		this.RResPanel.add(this.RResNameTf);
+
+		this.RResInTf = new JTextField();
+		this.RResInTf.setBounds(217, 30, 166, 25);
+		this.RResPanel.add(this.RResInTf);
+
+		this.RResOutTf = new JTextField();
+		this.RResOutTf.setBounds(217, 50, 166, 25);
+		this.RResPanel.add(this.RResOutTf);
+
+		this.RResOutTf = new JTextField();
+		this.RResOutTf.setBounds(217, 70, 166, 25);
+		this.RResPanel.add(this.RResOutTf);
+
+		this.RResEnterBtn = new JButton("Enter");
+		this.RResEnterBtn.setBounds(190, 130, 220, 30);
+		this.RResPanel.add(this.RResEnterBtn);
+
+		this.RResLbl = new JLabel();
+		this.RResLbl.setBounds(190, 210, 220, 30);
+		this.RResPanel.add(this.RResLbl);
+
+		this.RResTextArea = new JTextArea();
+		this.RResTextArea.setBounds(5, 300, 580, 400);
+		this.RResTextArea.setEditable(false);
+		this.RResPanel.add(this.RResTextArea);
+
+		this.container.add(RResPanel, "RResPanel");
+
 		//-------------------------------------------
 		this.mainFrame.setVisible(true);
 	}
@@ -804,5 +860,45 @@ public class View {
 
 	public void setUpLblText(String text) {
 		this.UpLbl.setText(text);
+	}
+
+	//remove reservation components
+	public void setRResMenuBtnListener(ActionListener actionListener) {
+		this.RResMenuBtn.addActionListener(actionListener);
+	}
+
+	public void setRResEnterBtnListener(ActionListener actionListener) {
+		this.RResEnterBtn.addActionListener(actionListener);
+	}
+
+	public String getRResNameTfText() {
+		return this.RResNameTf.getText();
+	}
+
+	public String getRResInTfText() {
+		return this.RResInTf.getText();
+	}
+
+	public String getRResOutTfText() {
+		return this.RResOutTf.getText();
+	}
+
+	public String getRResRoomTfText() {
+		return this.RResRoomTf.getText();
+	}
+
+	public void clearRResTfText() {
+		this.RResNameTf.setText("");
+		this.RResInTf.setText("");
+		this.RResOutTf.setText("");
+		this.RResRoomTf.setText("");
+	}
+
+	public void setRResLblText(String text) {
+		this.RResLbl.setText(text);
+	}
+
+	public void setRResTextArea(String text) {
+		this.RResTextArea.setText(text);
 	}
 }	
