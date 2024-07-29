@@ -8,11 +8,11 @@ public class View {
 	private JFrame mainFrame;
 	private JPanel mainPanel, createHotelPanel, viewHotelPanel, 
 				   viewHotelPanel2, AbPanel, IRoomPanel, IResPanel,
-				   MhPanel1, MhPanel2, CnPanel, ArPanel1, ArPanel2, RRoomPanel, UpPanel, RResPanel
+				   MhPanel1, MhPanel2, CnPanel, ArPanel1, ArPanel2, RRoomPanel, UpPanel, RResPanel, RhPanel
 				   ;
 	private JLabel mainPanelLbl, createHotelLbl, VhLbl, MhLbl, 
 						AbLbl, IRoomLbl, IResLbl, IResNameLbl, IResInLbl, IResOutLbl, IResRoomLbl,
-						MhLbl2, CnLbl, ArLbl, RRoomLbl, UpLbl, RResLbl, RResNameLbl, RResInLbl, RResOutLbl, RResRoomLbl
+						MhLbl2, CnLbl, ArLbl, RRoomLbl, UpLbl, RResLbl, RResNameLbl, RResInLbl, RResOutLbl, RResRoomLbl, RhLbl, RhLbl2, RhLbl3
 						;
 	private JTextField createHotelTf, 
 					   viewHotelPanelTf, AbEnterTf, IRoomTf, IResNameTf, IResInTf, IResOutTf, IResRoomTf,
@@ -29,7 +29,8 @@ public class View {
 						ArMenuBtn1, ArMenuBtn2, ArStdBtn, ArDelBtn, ArExBtn, ArEnterBtn,
 						RRoomMenuBtn, RRoomEnterBtn,
 						UpMenuBtn, UpEnterBtn,
-						RResMenuBtn, RResEnterBtn
+						RResMenuBtn, RResEnterBtn,
+						RhMenuBtn, RhOkBtn, RhCancelBtn
 					;
 	private JTextArea VhTextArea, AbTextArea, IRoomTextArea, IResTextArea,
 				      MhTextArea, ArTextArea, RRoomTextArea, RResTextArea
@@ -445,7 +446,7 @@ public class View {
 		
 		this.container.add(UpPanel, "UpPanel");
 
-		// remove reservation label
+		// remove reservation panel
 		this.RResPanel = new JPanel();
 		this.RResPanel.setLayout(null);
 
@@ -500,6 +501,38 @@ public class View {
 
 		this.container.add(RResPanel, "RResPanel");
 
+		//remove hotel panel
+		this.RhPanel = new JPanel();
+		this.RhPanel.setLayout(null);
+
+		this.RhMenuBtn = new JButton("Main Menu");
+		this.RhMenuBtn.setBounds(0, 0, 100, 30);
+		this.RhPanel.add(this.RhMenuBtn);
+
+		this.RhOkBtn = new JButton("OK");
+		this.RhOkBtn.setBounds(190, 90, 220, 30);
+		this.RhPanel.add(this.RhOkBtn);
+
+		this.RhCancelBtn = new JButton("Cancel");
+		this.RhCancelBtn.setBounds(190, 130, 220, 30);
+		this.RhPanel.add(this.RhCancelBtn);
+
+		this.RhLbl = new JLabel();
+		this.RhLbl.setBounds(190, 210, 220, 30);
+		this.RhPanel.add(this.RhLbl);
+
+		this.RhLbl2 = new JLabel();
+		this.RhLbl2.setBounds(190, 230, 220, 30);
+		this.RhPanel.add(this.RhLbl2);
+
+		this.RhLbl3 = new JLabel();
+		this.RhLbl3.setBounds(190, 250, 220, 30);
+		this.RhPanel.add(this.RhLbl3);
+
+		this.container.add(RhPanel, "RhPanel");
+
+		//simulate booking panel
+		
 		//-------------------------------------------
 		this.mainFrame.setVisible(true);
 	}
@@ -900,5 +933,30 @@ public class View {
 
 	public void setRResTextArea(String text) {
 		this.RResTextArea.setText(text);
+	}
+
+	// remove hotel components
+	public void setRhMenuBtnListener(ActionListener actionListener) {
+		this.RhMenuBtn.addActionListener(actionListener);
+	}
+
+	public void setRhOkBtnListener(ActionListener actionListener) {
+		this.RhOkBtn.addActionListener(actionListener);
+	}
+
+	public void setRhCancelBtnListener(ActionListener actionListener) {
+		this.RhCancelBtn.addActionListener(actionListener);
+	}
+
+	public void setRhLblText(String text) {
+		this.RhLbl.setText(text);
+	}
+
+	public void setRhLbl2Text(String text) {
+		this.RhLbl2.setText(text);
+	}
+
+	public void setRhLbl3Text(String text) {
+		this.RhLbl3.setText(text);
 	}
 }	

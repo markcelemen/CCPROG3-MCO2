@@ -549,6 +549,16 @@ public class Controller {
 			}
 		});
 
+		this.view.setMhBtn6Listener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.setRhLblText("The following hotel will be deleted");
+				view.setRhLbl2Text(chosenHotel.getName());
+				view.setRhLbl3Text("Continue?");
+				view.getCardLayout().show(view.getContainer(), "RhPanel");
+			}
+		});
+
 		//change hotel name components
 		this.view.setCnMenuBtnListener(new ActionListener() {
 			@Override
@@ -859,7 +869,31 @@ public class Controller {
 				else {
 					view.setRResLblText("Invalid input");
 				}
-				//
+			}
+		});
+
+		//remove hotel components
+		this.view.setRhMenuBtnListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.getCardLayout().show(view.getContainer(), "mainPanel");
+				view.setMainPanelLbl("");
+			}
+		});
+
+		this.view.setRhOkBtnListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.setMainPanelLbl("Hotel "+chosenHotel.getName()+" successfully removed");
+				HRS.hotelModel.getHotelList().remove(chosenHotel);
+				view.getCardLayout().show(view.getContainer(), "mainPanel");
+			}
+		});
+
+		this.view.setRhCancelBtnListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.getCardLayout().show(view.getContainer(), "MhPanel2");
 			}
 		});
 	}
