@@ -7,6 +7,8 @@ public class Controller {
 	private String chosenHotelName;
 	private Hotel chosenHotel;
 	private String chosenRoomType;
+	private Room chosenRoom;
+	private Reservation createdReservation;
 
 	public Controller(HRS HRS, View view) {
 		this.view = view;
@@ -62,8 +64,18 @@ public class Controller {
 		this.view.setSimulateBtnListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				String hotelList = "";
 				if (HRS.hotelModel.getHotelList().size() == 0)
 					view.setMainPanelLbl("No hotels added to the system");
+				else {
+					view.setSbTfText("");
+					view.setSbLbl1Text("Enter hotel for booking");
+					view.getCardLayout().show(view.getContainer(), "SbPanel1");
+					for (Hotel h : HRS.hotelModel.getHotelList()) {
+						hotelList += h.getName()+"\n";
+					}
+					view.setSbTextArea1("Hotel list: \n"+hotelList);
+				}
 			}
 		});
 
@@ -299,14 +311,14 @@ public class Controller {
 				}
 				for (Room r : chosenHotel.roomModel.getRoomList()) {
 					if (roomName.equals(r.getName())) {
-						for (int i = 1; i <= 31; i++) {
+						for (Day d : chosenHotel.getDayList()) {
 							if (r.isReserved()) {
-								if (r.isAvailable(i)) {
-									displayAvailability += i+"  ";
+								if (r.isAvailable(d.getDay())) {
+									displayAvailability += d.getDay()+"  ";
 								}
 							}
 							else {
-								displayAvailability += i+"  ";
+								displayAvailability += d.getDay()+"  ";
 							}
 						}
 						for (Day d : chosenHotel.getDayList()) {
@@ -374,17 +386,18 @@ public class Controller {
 						resIn == r.getCheckIn() &&
 						resOut == r.getCheckOut()) {
 							display += "Guest name: "+r.getGuestName()+"\n";
-							display += "Check-in day: "+String.format("%02",r.getCheckIn())+"\n";
-							display += "Check-out day: "+String.format("%02",r.getCheckOut())+"\n";
+							display += "Check-in day: "+String.format("%02d",r.getCheckIn())+"\n";
+							display += "Check-out day: "+String.format("%02d",r.getCheckOut())+"\n";
+							display += "Room: ";
 							if (r.getRoom() instanceof StandardRoom) 
 								display += r.getRoom().getName()+"(S)\n";
 							if (r.getRoom() instanceof DeluxeRoom)
 								display += r.getRoom().getName()+"(D)\n";
 							if (r.getRoom() instanceof ExecutiveRoom)
 								display += r.getRoom().getName()+"(E)\n";
-							display += "Price per night:\n";
+							display += "\nPrice per night:\n";
 							for (Day d : r.getDayList()) {
-								display += "Day "+String.format("%02: ", d.getDay())+ (r.getRoom().getPrice() * d.getRate())+"\n\n";
+								display += "Day "+String.format("%02d: ", d.getDay())+ (r.getRoom().getPrice() * d.getRate())+"\n\n";
 							}
 							display += "Total price: "+r.getPrice();
 							val = true;
@@ -409,7 +422,7 @@ public class Controller {
 					else {
 						view.setIResTextArea("Hotel name: " +chosenHotel.getName()+"\nTotal number of rooms: "+chosenHotel.roomModel.getRoomList().size()+
 						"\nTotal earnings: "+chosenHotel.getEarnings() +"\n\n"+display);
-						view.setIResLblText("Viewing hotel "+chosenHotel.getName()+" with selected reservation");
+						view.setIResLblText("Viewing "+chosenHotel.getName()+" with selected reservation");
 					}
 				}
 				else {
@@ -894,6 +907,117 @@ public class Controller {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				view.getCardLayout().show(view.getContainer(), "MhPanel2");
+			}
+		});
+
+		//simulate booking panel 1 components
+		this.view.setSbMenuBtn1Listener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.getCardLayout().show(view.getContainer(), "mainPanel");
+				view.setMainPanelLbl("");
+			}
+		});
+
+		this.view.setSbEnterBtn1Listener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				chosenHotelName = view.getSbTfText();
+				boolean val = false;
+				for (Hotel h : HRS.hotelModel.getHotelList()) {
+					if (chosenHotelName.equals(h.getName())) {
+						chosenHotel = h;
+						val = true;
+						break;
+					}
+				}
+
+				if (val == false) {
+					view.setSbLbl1Text("Hotel not found");
+				} else {
+					String stdList = "Standard Rooms:\n", delList = "Deluxe Rooms:\n", exList = "Executive Rooms\n";
+					for (Room r : chosenHotel.roomModel.getRoomList()) {
+						if (r instanceof StandardRoom) 
+							stdList += r.getName()+"\n";
+						if (r instanceof DeluxeRoom)
+							delList += r.getName()+"\n";
+						if (r instanceof ExecutiveRoom)
+							exList += r.getName()+"\n";
+					}
+					view.setSbTextArea2("List of Rooms:\n"+stdList+"\n"+delList+"\n"+exList);
+					view.setSbLbl2Text("Enter reservation details");
+					view.getCardLayout().show(view.getContainer(), "SbPanel2");
+					view.clearSbTfText();
+				}
+			}
+		});
+
+		//simulate booking panel 2 components
+		this.view.setSbMenuBtn2Listener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.getCardLayout().show(view.getContainer(), "mainPanel");
+				view.setMainPanelLbl("");
+			}
+		});
+
+		this.view.setSbEnterBtn2Listener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String resName = view.getSbNameTfText();
+				int resIn = 0;
+				int resOut = 0;
+				String resRoom = view.getSbRoomTfText();
+				boolean result = false, available = true, found = false;
+
+				try {
+					resIn = Integer.parseInt(view.getSbInTfText());
+					resOut = Integer.parseInt(view.getSbOutTfText());
+					result = true;
+				} catch (Exception d) {
+					
+				}
+				
+				if (result == true) {
+					if (resIn > resOut || resIn < 1 || resOut > 31 || resIn == 31 || resOut == 1) {
+						view.setSbLbl2Text("Invalid check-in/check-out");
+					} else {
+						for (Room r : chosenHotel.roomModel.getRoomList()) { // checks availability of room
+							if (resRoom.equals(r.getName())) {
+								found = true;
+								if (r.isReserved()) {
+									for (int i = resIn; i < resOut; i++) {
+										if (r.isAvailable(i)) {
+											chosenRoom = r;
+										} else {
+											available = false;
+										}
+									}
+								} else {
+									chosenRoom = r;
+								}
+								break;
+							}
+						}
+						if (found) {
+							if (available) {
+								createdReservation = new Reservation(resName, resIn, resOut, chosenRoom, chosenHotel);
+								chosenHotel.reservationModel.getReservationList().add(createdReservation);
+								chosenRoom.reservationModel.getReservationList().add(createdReservation);
+			
+								//view.setSbLbl2Text("nais wan");
+								//view.setSbLbl2Text(""+chosenHotel.reservationModel.getReservationList().size());
+							} else {
+								view.setSbLbl2Text("Room not available");
+							}
+						} else {
+							view.setSbLbl2Text("Room not found");
+						}
+					}
+				}
+				else {
+					view.setSbLbl2Text("Invalid input");
+				}
 			}
 		});
 	}

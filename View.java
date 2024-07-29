@@ -8,15 +8,18 @@ public class View {
 	private JFrame mainFrame;
 	private JPanel mainPanel, createHotelPanel, viewHotelPanel, 
 				   viewHotelPanel2, AbPanel, IRoomPanel, IResPanel,
-				   MhPanel1, MhPanel2, CnPanel, ArPanel1, ArPanel2, RRoomPanel, UpPanel, RResPanel, RhPanel
+				   MhPanel1, MhPanel2, CnPanel, ArPanel1, ArPanel2, RRoomPanel, UpPanel, RResPanel, RhPanel,
+				   SbPanel1, SbPanel2
 				   ;
 	private JLabel mainPanelLbl, createHotelLbl, VhLbl, MhLbl, 
 						AbLbl, IRoomLbl, IResLbl, IResNameLbl, IResInLbl, IResOutLbl, IResRoomLbl,
-						MhLbl2, CnLbl, ArLbl, RRoomLbl, UpLbl, RResLbl, RResNameLbl, RResInLbl, RResOutLbl, RResRoomLbl, RhLbl, RhLbl2, RhLbl3
+						MhLbl2, CnLbl, ArLbl, RRoomLbl, UpLbl, RResLbl, RResNameLbl, RResInLbl, RResOutLbl, RResRoomLbl, RhLbl, RhLbl2, RhLbl3,
+						SbLbl1, SbLbl2, SbNameLbl, SbInLbl, SbOutLbl, SbRoomLbl
 						;
 	private JTextField createHotelTf, 
 					   viewHotelPanelTf, AbEnterTf, IRoomTf, IResNameTf, IResInTf, IResOutTf, IResRoomTf,
-					   MhTf, CnTf, ArTf, RRoomTf, UpTf, RResNameTf, RResInTf, RResOutTf, RResRoomTf
+					   MhTf, CnTf, ArTf, RRoomTf, UpTf, RResNameTf, RResInTf, RResOutTf, RResRoomTf,
+					   SbTf, SbNameTf, SbInTf, SbOutTf, SbRoomTf
 					   ;
 	private JButton createHotelBtn, viewHotelBtn, manageHotelBtn, simulateBtn, datePriceBtn, // main menu buttons
 					mainMenuBtn1, enterHotelBtn1, // create hotel buttons
@@ -30,10 +33,12 @@ public class View {
 						RRoomMenuBtn, RRoomEnterBtn,
 						UpMenuBtn, UpEnterBtn,
 						RResMenuBtn, RResEnterBtn,
-						RhMenuBtn, RhOkBtn, RhCancelBtn
+						RhMenuBtn, RhOkBtn, RhCancelBtn,
+					SbMenuBtn1, SbMenuBtn2, SbEnterBtn1, SbEnterBtn2 // simulate booking buttons
 					;
 	private JTextArea VhTextArea, AbTextArea, IRoomTextArea, IResTextArea,
-				      MhTextArea, ArTextArea, RRoomTextArea, RResTextArea
+				      MhTextArea, ArTextArea, RRoomTextArea, RResTextArea,
+					  SbTextArea1, SbTextArea2
 					  ;
 	private Container container;
 	private CardLayout cardLayout;
@@ -531,8 +536,88 @@ public class View {
 
 		this.container.add(RhPanel, "RhPanel");
 
-		//simulate booking panel
+		//simulate booking panel 1
+		this.SbPanel1 = new JPanel();
+		this.SbPanel1.setLayout(null);
+
+		this.SbMenuBtn1 = new JButton("Main Menu");
+		this.SbMenuBtn1.setBounds(0, 0, 100, 30);
+		this.SbPanel1.add(this.SbMenuBtn1);
+
+		this.SbTf = new JTextField();
+		this.SbTf.setBounds(217, 50, 166, 25);
+		this.SbPanel1.add(this.SbTf);
+
+		this.SbEnterBtn1 = new JButton("Enter");
+		this.SbEnterBtn1.setBounds(190, 130, 220, 30);
+		this.SbPanel1.add(this.SbEnterBtn1);
+
+		this.SbLbl1 = new JLabel();
+		this.SbLbl1.setBounds(190, 210, 220, 30);
+		this.SbPanel1.add(this.SbLbl1);
+
+		this.SbTextArea1 = new JTextArea();
+		this.SbTextArea1.setBounds(5, 300, 580, 400);
+		this.SbTextArea1.setEditable(false);
+		this.SbPanel1.add(this.SbTextArea1);
+
+		this.container.add(SbPanel1, "SbPanel1");
+
+		//simulate booking panel 2
+		this.SbPanel2 = new JPanel();
+		this.SbPanel2.setLayout(null);
+
+		this.SbMenuBtn2 = new JButton("Main Menu");
+		this.SbMenuBtn2.setBounds(0, 0, 100, 30);
+		this.SbPanel2.add(this.SbMenuBtn2);
 		
+		this.SbNameLbl = new JLabel("Name:");
+		this.SbNameLbl.setBounds(110, 5, 220, 30);
+		this.SbPanel2.add(this.SbNameLbl);
+
+		this.SbInLbl = new JLabel("Check-in day:");
+		this.SbInLbl.setBounds(110, 25, 220, 30);
+		this.SbPanel2.add(this.SbInLbl);
+
+		this.SbOutLbl = new JLabel("Check-out day:");
+		this.SbOutLbl.setBounds(110, 45, 220, 30);
+		this.SbPanel2.add(this.SbOutLbl);
+
+		this.SbRoomLbl = new JLabel("Room:");
+		this.SbRoomLbl.setBounds(110, 65, 220, 30);
+		this.SbPanel2.add(this.SbRoomLbl);
+
+		this.SbNameTf = new JTextField();
+		this.SbNameTf.setBounds(217, 10, 166, 25);
+		this.SbPanel2.add(this.SbNameTf);
+
+		this.SbInTf = new JTextField();
+		this.SbInTf.setBounds(217, 30, 166, 25);
+		this.SbPanel2.add(this.SbInTf);
+
+		this.SbOutTf = new JTextField();
+		this.SbOutTf.setBounds(217, 50, 166, 25);
+		this.SbPanel2.add(this.SbOutTf);
+
+		this.SbRoomTf = new JTextField();
+		this.SbRoomTf.setBounds(217, 70, 166, 25);
+		this.SbPanel2.add(this.SbRoomTf);
+
+		this.SbEnterBtn2 = new JButton("Enter");
+		this.SbEnterBtn2.setBounds(190, 130, 220, 30);
+		this.SbPanel2.add(this.SbEnterBtn2);
+
+		this.SbLbl2 = new JLabel();
+		this.SbLbl2.setBounds(190, 210, 220, 30);
+		this.SbPanel2.add(this.SbLbl2);
+
+		this.SbTextArea2 = new JTextArea();
+		this.SbTextArea2.setBounds(5, 300, 580, 400);
+		this.SbTextArea2.setEditable(false);
+		this.SbPanel2.add(this.SbTextArea2);
+
+		this.container.add(SbPanel2, "SbPanel2");
+
 		//-------------------------------------------
 		this.mainFrame.setVisible(true);
 	}
@@ -958,5 +1043,70 @@ public class View {
 
 	public void setRhLbl3Text(String text) {
 		this.RhLbl3.setText(text);
+	}
+
+	//simulate booking panel 1 components
+	public void setSbMenuBtn1Listener(ActionListener actionListener) {
+		this.SbMenuBtn1.addActionListener(actionListener);
+	}
+
+	public void setSbTfText(String text) {
+		this.SbTf.setText(text);
+	}
+
+	public String getSbTfText() {
+		return this.SbTf.getText();
+	}
+
+	public void setSbEnterBtn1Listener(ActionListener actionListener) {
+		this.SbEnterBtn1.addActionListener(actionListener);
+	}
+
+	public void setSbLbl1Text(String text) {
+		this.SbLbl1.setText(text);
+	}
+
+	public void setSbTextArea1(String text) {
+		this.SbTextArea1.setText(text);
+	}
+
+	//smiluate booking panel 2 components
+	public void setSbMenuBtn2Listener(ActionListener actionListener) {
+		this.SbMenuBtn2.addActionListener(actionListener);
+	}
+
+	public void setSbEnterBtn2Listener(ActionListener actionListener) {
+		this.SbEnterBtn2.addActionListener(actionListener);
+	}
+
+	public String getSbNameTfText() {
+		return this.SbNameTf.getText();
+	}
+
+	public String getSbInTfText() {
+		return this.SbInTf.getText();
+	}
+
+	public String getSbOutTfText() {
+		return this.SbOutTf.getText();
+	}
+
+	public String getSbRoomTfText() {
+		return this.SbRoomTf.getText();
+	}
+
+	public void clearSbTfText() {
+		this.SbNameTf.setText("");
+		this.SbInTf.setText("");
+		this.SbOutTf.setText("");
+		this.SbRoomTf.setText("");
+	}
+
+	public void setSbLbl2Text(String text) {
+		this.SbLbl2.setText(text);
+	}
+
+	public void setSbTextArea2(String text) {
+		this.SbTextArea2.setText(text);
 	}
 }	
