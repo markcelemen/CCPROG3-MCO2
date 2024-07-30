@@ -286,7 +286,7 @@ public class Controller {
 						view.setAbTextArea("Hotel name: " +chosenHotel.getName()+"\nTotal number of rooms: "+chosenHotel.roomModel.getRoomList().size()+
 						"\nTotal earnings: "+chosenHotel.getEarnings() + "\n\n"
 						+"Booked rooms:\n"+ displayBooked + "\nAvailable rooms: \n" + displayAvailable);
-						view.setAbLblText("Viewing hotel "+chosenHotel.getName()+" and day "+day+" availability");
+						view.setAbLblText("Viewing "+chosenHotel.getName()+" and day "+day+" availability");
 					}
 				else
 					view.setAbLblText("Invalid input");
@@ -355,7 +355,7 @@ public class Controller {
 					view.setIRoomTextArea("Hotel name: " +chosenHotel.getName()+"\nTotal number of rooms: "+chosenHotel.roomModel.getRoomList().size()+
 					"\nTotal earnings: "+chosenHotel.getEarnings() +"\n\n"+"Room type: "+displayType+
 					"\n\nDays available within the month:\n" + displayAvailability + "\n\nPrice per night:\n" + displayPrice);
-					view.setIRoomLblText("Viewing hotel "+chosenHotel.getName()+" and room "+roomName);
+					view.setIRoomLblText("Viewing "+chosenHotel.getName()+" and room "+roomName);
 				}
 			}
 		});
@@ -992,7 +992,7 @@ public class Controller {
 				}
 				
 				if (result == true) {
-					if (resIn > resOut || resIn < 1 || resOut > 31 || resIn == 31 || resOut == 1) {
+					if (resIn > resOut || resIn < 1 || resOut > 31 || resIn == 31 || resOut == 1 || resIn == resOut) {
 						view.setSbLbl2Text("Invalid check-in/check-out");
 					} else {
 						for (Room r : chosenHotel.roomModel.getRoomList()) { // checks availability of room
