@@ -683,7 +683,7 @@ public class View {
 
 		this.DpMenuBtn2 = new JButton("Main Menu");
 		this.DpMenuBtn2.setBounds(0, 0, 100, 30);
-		this.DpPanel2.add(this.SbMenuBtn2);
+		this.DpPanel2.add(this.DpMenuBtn2);
 
 		this.DpDayLbl = new JLabel("Day:");
 		this.DpDayLbl.setBounds(130, 25, 220, 30);
