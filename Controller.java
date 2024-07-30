@@ -82,8 +82,18 @@ public class Controller {
 		this.view.setDatePriceBtnListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				String hotelList = "";
 				if (HRS.hotelModel.getHotelList().size() == 0)
 					view.setMainPanelLbl("No hotels added to the system");
+				else {
+					view.setDpTfText("");
+					view.setDpLbl1Text("Enter hotel to modify rate");
+					view.getCardLayout().show(view.getContainer(), "DpPanel1");
+					for (Hotel h : HRS.hotelModel.getHotelList()) {
+						hotelList += h.getName()+"\n";
+					}
+					view.setDpTextArea("Hotel list: \n"+hotelList);
+				}
 			}
 		});
 
@@ -203,8 +213,8 @@ public class Controller {
 				view.clearIResTfText();
 				
 				for (Reservation r : chosenHotel.reservationModel.getReservationList()) {
-					resList += "Name: "+String.format("%-20s", r.getGuestName()) + String.format(" Check-in: %02d  ", r.getCheckIn())
-					+String.format(" Check-out: %02d  ", r.getCheckOut()) + " Room: "+r.getRoom().getName();
+					resList += "Name: "+String.format("%-40s", r.getGuestName()) + String.format(" Check-in: %02d      ", r.getCheckIn())
+					+String.format(" Check-out: %02d      ", r.getCheckOut()) + " Room: "+r.getRoom().getName();
 					if (r.getRoom() instanceof StandardRoom)
 						resList += "(S)\n";
 					if (r.getRoom() instanceof DeluxeRoom)
@@ -400,6 +410,9 @@ public class Controller {
 								display += "Day "+String.format("%02d: ", d.getDay())+ (r.getRoom().getPrice() * d.getRate())+"\n\n";
 							}
 							display += "Total price: "+r.getPrice();
+							if (r.getRedeemedCode()) {
+								display += "\nDiscount applied";
+							}
 							val = true;
 							break;
 						}
@@ -408,8 +421,8 @@ public class Controller {
 					if (!val) {
 						view.setIResLblText("Reservation not found");
 						for (Reservation r : chosenHotel.reservationModel.getReservationList()) {
-							resList += "Name: "+String.format("%-20s", r.getGuestName()) + String.format(" Check-in: %02d  ", r.getCheckIn())
-							+String.format(" Check-out: %02d  ", r.getCheckOut()) + " Room: "+r.getRoom().getName();
+							resList += "Name: "+String.format("%-40s", r.getGuestName()) + String.format(" Check-in: %02d      ", r.getCheckIn())
+							+String.format(" Check-out: %02d      ", r.getCheckOut()) + " Room: "+r.getRoom().getName();
 							if (r.getRoom() instanceof StandardRoom)
 								resList += "(S)\n";
 							if (r.getRoom() instanceof DeluxeRoom)
@@ -1004,9 +1017,10 @@ public class Controller {
 								createdReservation = new Reservation(resName, resIn, resOut, chosenRoom, chosenHotel);
 								chosenHotel.reservationModel.getReservationList().add(createdReservation);
 								chosenRoom.reservationModel.getReservationList().add(createdReservation);
-			
-								//view.setSbLbl2Text("nais wan");
-								//view.setSbLbl2Text(""+chosenHotel.reservationModel.getReservationList().size());
+								
+								view.setCodeTfText("");
+								view.setCodeLbl2Text("Enter discount code");
+								view.getCardLayout().show(view.getContainer(), "CodePanel");
 							} else {
 								view.setSbLbl2Text("Room not available");
 							}
@@ -1017,6 +1031,131 @@ public class Controller {
 				}
 				else {
 					view.setSbLbl2Text("Invalid input");
+				}
+			}
+		});
+
+		//discount code components
+		this.view.setCodeMenuBtnListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.getCardLayout().show(view.getContainer(), "mainPanel");
+				view.setMainPanelLbl("");
+			}
+		});
+
+		this.view.setCodeEnterBtnListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String code = view.getCodeTfText();
+				DiscountCode discountCode;
+				boolean result;
+
+				if (createdReservation.getRedeemedCode() == false) {
+					if (code.equals("I_WORK_HERE") || code.equals("STAY4_GET1") || code.equals("PAYDAY")) {
+						if (code.equals("I_WORK_HERE")) {
+							discountCode = new IWorkHereDiscount();
+							result = discountCode.applyDiscount(createdReservation);
+							createdReservation.setRedeemedCode(result);
+							view.setCodeLbl2Text("Code accepted");
+						}
+						else if (code.equals("STAY4_GET1")) {
+							discountCode = new Stay4Get1Discount();
+							result = discountCode.applyDiscount(createdReservation);
+							if (result == false) {
+								view.setCodeLbl2Text("Conditions not met");
+							} else {
+								createdReservation.setRedeemedCode(result);
+								view.setCodeLbl2Text("Code accepted");
+							}
+						}
+						else if (code.equals("PAYDAY")) {
+							discountCode = new PaydayDiscount();
+							result = discountCode.applyDiscount(createdReservation);
+							if (result == false) {
+								view.setCodeLbl2Text("Conditions not met");
+							} else {
+								createdReservation.setRedeemedCode(result);
+								view.setCodeLbl2Text("Code accepted");
+							}
+						}
+					} else {
+						view.setCodeLbl2Text("Invalid code");
+					}
+				} else {
+					view.setCodeLbl2Text("Discount already applied");
+				}
+			}
+		});
+
+		//date price modifier panel 1 components
+		this.view.setDpMenuBtn1Listener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.getCardLayout().show(view.getContainer(), "mainPanel");
+				view.setMainPanelLbl("");
+			}
+		});
+
+		this.view.setDpEnterBtn1Listener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				chosenHotelName = view.getDpTfText();
+				boolean val = false;
+				for (Hotel h : HRS.hotelModel.getHotelList()) {
+					if (chosenHotelName.equals(h.getName())) {
+						chosenHotel = h;
+						val = true;
+						break;
+					}
+				}
+
+				if (val == false) {
+					view.setDpLbl1Text("Hotel not found");
+				} else {
+					view.setDpLbl2Text("Enter day and new rate");
+					view.clearDpTfText();
+					view.getCardLayout().show(view.getContainer(), "DpPanel2");
+				}
+			}
+		});
+
+		//date price modifier panel 2 components
+		this.view.setDpMenuBtn2Listener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				view.getCardLayout().show(view.getContainer(), "mainPanel");
+				view.setMainPanelLbl("");
+			}
+		});
+
+		this.view.setDpEnterBtn2Listener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int day = 0;
+				double rate = 0;
+				boolean result = false;
+				try {
+					day = Integer.parseInt(view.getDpDayTfText());
+					rate = Double.parseDouble(view.getDpRateTfText());
+					result = true;
+				} catch (Exception d) {
+					
+				}
+				if (result == true) {
+					if (day < 1 || day > 31) {
+						view.setDpLbl2Text("Invalid day");
+					}
+					else if (rate < 0.5 || rate > 1.5) {
+						view.setDpLbl2Text("Rate must be from 50% to 150%");
+					}
+					else {
+						chosenHotel.getDayList().get(day - 1).setRate(rate);
+						view.clearDpTfText();
+						view.setDpLbl2Text("Rate successfully changed");
+					}
+				} else {
+					view.setDpLbl2Text("Invalid input");
 				}
 			}
 		});

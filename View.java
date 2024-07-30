@@ -9,17 +9,20 @@ public class View {
 	private JPanel mainPanel, createHotelPanel, viewHotelPanel, 
 				   viewHotelPanel2, AbPanel, IRoomPanel, IResPanel,
 				   MhPanel1, MhPanel2, CnPanel, ArPanel1, ArPanel2, RRoomPanel, UpPanel, RResPanel, RhPanel,
-				   SbPanel1, SbPanel2
+				   SbPanel1, SbPanel2, CodePanel,
+				   DpPanel1, DpPanel2
 				   ;
 	private JLabel mainPanelLbl, createHotelLbl, VhLbl, MhLbl, 
 						AbLbl, IRoomLbl, IResLbl, IResNameLbl, IResInLbl, IResOutLbl, IResRoomLbl,
 						MhLbl2, CnLbl, ArLbl, RRoomLbl, UpLbl, RResLbl, RResNameLbl, RResInLbl, RResOutLbl, RResRoomLbl, RhLbl, RhLbl2, RhLbl3,
-						SbLbl1, SbLbl2, SbNameLbl, SbInLbl, SbOutLbl, SbRoomLbl
+						SbLbl1, SbLbl2, SbNameLbl, SbInLbl, SbOutLbl, SbRoomLbl, CodeLbl1, CodeLbl2,
+						DpLbl1, DpLbl2, DpDayLbl, DpRateLbl
 						;
 	private JTextField createHotelTf, 
 					   viewHotelPanelTf, AbEnterTf, IRoomTf, IResNameTf, IResInTf, IResOutTf, IResRoomTf,
 					   MhTf, CnTf, ArTf, RRoomTf, UpTf, RResNameTf, RResInTf, RResOutTf, RResRoomTf,
-					   SbTf, SbNameTf, SbInTf, SbOutTf, SbRoomTf
+					   SbTf, SbNameTf, SbInTf, SbOutTf, SbRoomTf, CodeTf,
+					   DpTf, DpDayTf, DpRateTf
 					   ;
 	private JButton createHotelBtn, viewHotelBtn, manageHotelBtn, simulateBtn, datePriceBtn, // main menu buttons
 					mainMenuBtn1, enterHotelBtn1, // create hotel buttons
@@ -34,11 +37,14 @@ public class View {
 						UpMenuBtn, UpEnterBtn,
 						RResMenuBtn, RResEnterBtn,
 						RhMenuBtn, RhOkBtn, RhCancelBtn,
-					SbMenuBtn1, SbMenuBtn2, SbEnterBtn1, SbEnterBtn2 // simulate booking buttons
+					SbMenuBtn1, SbMenuBtn2, SbEnterBtn1, SbEnterBtn2, // simulate booking buttons
+						CodeMenuBtn, CodeEnterBtn,
+					DpMenuBtn1, DpMenuBtn2, DpEnterBtn1, DpEnterBtn2 //date price modifier buttons
 					;
 	private JTextArea VhTextArea, AbTextArea, IRoomTextArea, IResTextArea,
 				      MhTextArea, ArTextArea, RRoomTextArea, RResTextArea,
-					  SbTextArea1, SbTextArea2
+					  SbTextArea1, SbTextArea2,
+					  DpTextArea
 					  ;
 	private Container container;
 	private CardLayout cardLayout;
@@ -618,6 +624,93 @@ public class View {
 
 		this.container.add(SbPanel2, "SbPanel2");
 
+		//code panel
+		this.CodePanel = new JPanel();
+		this.CodePanel.setLayout(null);
+
+		this.CodeMenuBtn = new JButton("Main Menu");
+		this.CodeMenuBtn.setBounds(0, 0, 100, 30);
+		this.CodePanel.add(this.CodeMenuBtn);
+
+		this.CodeTf = new JTextField();
+		this.CodeTf.setBounds(217, 90, 166, 25);
+		this.CodePanel.add(this.CodeTf);
+
+		this.CodeEnterBtn = new JButton("Enter");
+		this.CodeEnterBtn.setBounds(190, 130, 220, 30);
+		this.CodePanel.add(this.CodeEnterBtn);
+
+		this.CodeLbl1 = new JLabel("Successfully booked reservation");
+		this.CodeLbl1.setBounds(190, 20, 220, 30);
+		this.CodePanel.add(this.CodeLbl1);
+
+		this.CodeLbl2 = new JLabel();
+		this.CodeLbl2.setBounds(190, 210, 220, 30);
+		this.CodePanel.add(this.CodeLbl2);
+
+		this.container.add(CodePanel, "CodePanel");
+
+		//date price modifier panel 1
+		this.DpPanel1 = new JPanel();
+		this.DpPanel1.setLayout(null);
+
+		this.DpMenuBtn1 = new JButton("Main Menu");
+		this.DpMenuBtn1.setBounds(0, 0, 100, 30);
+		this.DpPanel1.add(this.DpMenuBtn1);
+
+		this.DpTf = new JTextField();
+		this.DpTf.setBounds(217, 50, 166, 25);
+		this.DpPanel1.add(this.DpTf);
+
+		this.DpEnterBtn1 = new JButton("Enter");
+		this.DpEnterBtn1.setBounds(190, 130, 220, 30);
+		this.DpPanel1.add(this.DpEnterBtn1);
+
+		this.DpLbl1 = new JLabel();
+		this.DpLbl1.setBounds(190, 210, 220, 30);
+		this.DpPanel1.add(this.DpLbl1);
+
+		this.DpTextArea = new JTextArea();
+		this.DpTextArea.setBounds(5, 300, 580, 400);
+		this.DpTextArea.setEditable(false);
+		this.DpPanel1.add(this.DpTextArea);
+
+		this.container.add(DpPanel1, "DpPanel1");
+
+		//date price modifier panel 2
+		this.DpPanel2 = new JPanel();
+		this.DpPanel2.setLayout(null);
+
+		this.DpMenuBtn2 = new JButton("Main Menu");
+		this.DpMenuBtn2.setBounds(0, 0, 100, 30);
+		this.DpPanel2.add(this.SbMenuBtn2);
+
+		this.DpDayLbl = new JLabel("Day:");
+		this.DpDayLbl.setBounds(130, 25, 220, 30);
+		this.DpPanel2.add(this.DpDayLbl);
+
+		this.DpRateLbl = new JLabel("Rate:");
+		this.DpRateLbl.setBounds(130, 45, 220, 30);
+		this.DpPanel2.add(this.DpRateLbl);
+
+		this.DpDayTf = new JTextField();
+		this.DpDayTf.setBounds(217, 30, 166, 25);
+		this.DpPanel2.add(this.DpDayTf);
+
+		this.DpRateTf = new JTextField();
+		this.DpRateTf.setBounds(217, 50, 166, 25);
+		this.DpPanel2.add(this.DpRateTf);
+
+		this.DpEnterBtn2 = new JButton("Enter");
+		this.DpEnterBtn2.setBounds(190, 130, 220, 30);
+		this.DpPanel2.add(this.DpEnterBtn2);
+
+		this.DpLbl2 = new JLabel();
+		this.DpLbl2.setBounds(190, 210, 220, 30);
+		this.DpPanel2.add(this.DpLbl2);
+
+		this.container.add(DpPanel2, "DpPanel2");
+
 		//-------------------------------------------
 		this.mainFrame.setVisible(true);
 	}
@@ -1108,5 +1201,77 @@ public class View {
 
 	public void setSbTextArea2(String text) {
 		this.SbTextArea2.setText(text);
+	}
+
+	//discount code panel components
+	public void setCodeMenuBtnListener(ActionListener actionListener) {
+		this.CodeMenuBtn.addActionListener(actionListener);
+	}
+
+	public void setCodeTfText(String text) {
+		this.CodeTf.setText(text);
+	}
+
+	public String getCodeTfText() {
+		return this.CodeTf.getText();
+	}
+
+	public void setCodeEnterBtnListener(ActionListener actionListener) {
+		this.CodeEnterBtn.addActionListener(actionListener);
+	}
+
+	public void setCodeLbl2Text(String text) {
+		this.CodeLbl2.setText(text);
+	}
+
+	// date price modifier panel 1 components
+	public void setDpMenuBtn1Listener(ActionListener actionListener) {
+		this.DpMenuBtn1.addActionListener(actionListener);
+	}
+
+	public void setDpTfText(String text) {
+		this.DpTf.setText(text);
+	}
+
+	public String getDpTfText() {
+		return this.DpTf.getText();
+	}
+
+	public void setDpEnterBtn1Listener(ActionListener actionListener) {
+		this.DpEnterBtn1.addActionListener(actionListener);
+	}
+
+	public void setDpLbl1Text(String text) {
+		this.DpLbl1.setText(text);
+	}
+
+	public void setDpTextArea(String text) {
+		this.DpTextArea.setText(text);
+	}
+
+	//date price modifier panel 2 components
+	public void setDpMenuBtn2Listener(ActionListener actionListener) {
+		this.DpMenuBtn2.addActionListener(actionListener);
+	}
+
+	public void setDpEnterBtn2Listener(ActionListener actionListener) {
+		this.DpEnterBtn2.addActionListener(actionListener);
+	}
+
+	public String getDpDayTfText() {
+		return this.DpDayTf.getText();
+	}
+	
+	public String getDpRateTfText() {
+		return this.DpRateTf.getText();
+	}
+
+	public void clearDpTfText() {
+		this.DpDayTf.setText("");
+		this.DpRateTf.setText("");
+	}
+
+	public void setDpLbl2Text(String text) {
+		this.DpLbl2.setText(text);
 	}
 }	
