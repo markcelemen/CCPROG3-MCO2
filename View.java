@@ -180,7 +180,7 @@ public class View {
 		this.AbPanel.add(this.AbEnterBtn);
 
 		this.AbLbl = new JLabel();
-		this.AbLbl.setBounds(190, 210, 220, 30);
+		this.AbLbl.setBounds(190, 210, 300, 30);
 		this.AbPanel.add(this.AbLbl);
 
 		this.AbTextArea = new JTextArea();
@@ -207,7 +207,7 @@ public class View {
 		this.IRoomPanel.add(this.IRoomEnterBtn);
 
 		this.IRoomLbl = new JLabel();
-		this.IRoomLbl.setBounds(190, 210, 220, 30);
+		this.IRoomLbl.setBounds(190, 210, 300, 30);
 		this.IRoomPanel.add(this.IRoomLbl);
 
 		this.IRoomTextArea = new JTextArea();
@@ -262,7 +262,7 @@ public class View {
 		this.IResPanel.add(this.IResEnterBtn);
 
 		this.IResLbl = new JLabel();
-		this.IResLbl.setBounds(190, 210, 220, 30);
+		this.IResLbl.setBounds(190, 210, 300, 30);
 		this.IResPanel.add(this.IResLbl);
 
 		this.IResTextArea = new JTextArea();
