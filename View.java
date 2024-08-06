@@ -493,9 +493,9 @@ public class View {
 		this.RResOutTf.setBounds(217, 50, 166, 25);
 		this.RResPanel.add(this.RResOutTf);
 
-		this.RResOutTf = new JTextField();
-		this.RResOutTf.setBounds(217, 70, 166, 25);
-		this.RResPanel.add(this.RResOutTf);
+		this.RResRoomTf = new JTextField();
+		this.RResRoomTf.setBounds(217, 70, 166, 25);
+		this.RResPanel.add(this.RResRoomTf);
 
 		this.RResEnterBtn = new JButton("Enter");
 		this.RResEnterBtn.setBounds(190, 130, 220, 30);
